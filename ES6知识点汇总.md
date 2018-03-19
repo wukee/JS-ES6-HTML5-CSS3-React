@@ -662,10 +662,123 @@ Object.getPrototypeOf(true) === Boolean.prototype // true
 
 ### Set 和 Map 数据结构
 
+#### Set
+
 ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。
 
 ```javascript
 const s = new Set([2, 3, 5, 4, 5, 2, 2]);
 console.log(s) //Set{2,3,5,4}
+
+//set有自己的属性与方法
+//Set.prototype.constructor ：构造函数，默认就是 Set 函数。
+s.size;      //4  返回 Set 实例的成员总数。相当于数据的length
+//方法
+s.add(6);    //Set{2,3,5,4,6}  添加某个值，返回 Set 结构本身。  
+s.delete(2); //Set{3,5,4,6}    删除某个值，返回一个布尔值，表示删除是否成功。
+s.has(5);    //ture    返回一个布尔值，表示该值是否为 Set 的成员。
+s.clear();   //Set{}   清除所有成员，没有返回值。
+
+//Array.from 方法可以将 Set 结构转为数组,并且可以去除数组中的重复成员
+const arr1 = [1,2,2,3,3,4,5];
+const items = new Set(arr1);
+const arr2 = Array.from(items); //[1,2,3,4,5],注意Set不是一个数组，用的时候需转化成数组
+
+//与扩展运算符结合可以去除数组的重复成员
+let arr = [3, 5, 2, 2, 5, 5]; 
+let arr2 = [...new Set(arr)]; // [3, 5, 2]
+
+
+```
+
+遍历操作：
+
+- `keys()` ：返回键名的遍历器
+- `values()` ：返回键值的遍历器
+- `entries()` ：返回**键值对**的遍历器，注意Set机构键名和键值相同
+- `forEach() `：使用回调函数遍历每个成员，用于对每个成员执行某种操作，没有返回值。
+
+由于 **Set 结构没有键名**，只有键值（或者说键名和键值是同一个值），所以 keys 方法和 values 方法的行为完全一致。
+
+```javascript
+let set = new Set(['red', 'green', 'blue']);
+for (let item of set.keys()) {  // 注意：for(let item of set)...,简写默认的是此处的返回值
+console.log(item);
+} 
+// red
+// green
+// blue
+
+for (let item of set.entries()) {
+console.log(item);
+}
+// ["red", "red"]   返回简键值对的形式
+// ["green", "green"]
+// ["blue", "blue"]
+```
+
+#### Map
+
+ES6 提供了 Map 数据结构，类似于JSON数据，Map 结构提供了“值—值”的对应，是一种更完善的 Hash （键值对的集合）结构实现。为了和for…of循环配合而生。
+
+```javascript
+const map = new Map([['a','red'],['b','blue'],['c','green']]) //也可以通过set()方法设置
+map.size//3
+//设置 set(key, value)，返回整个 Map 结构。
+const m = new Map();
+m.set('a','apple');   //键是字符串
+m.set(262, 'standard') // 键是数值
+m.set(undefined, 'nah') // 键是 undefined
+
+//获取 get(key)
+m.get(a)  //apple
+
+//has(key) 表示某个键是否在当前 Map 对象之中。返回布尔值
+m.has(262) //true, 注意检查的是键名
+
+//delete(key) 删除某个键 返回布尔值
+//clear() 清除所有成员，没有返回值。
+```
+
+遍历方法和Set一样
+
+- Map 结构原生提供三个遍历器生成函数和一个遍历方法。
+- keys() ：返回键名的遍历器。
+- values() ：返回键值的遍历器。
+- entries() ：返回所有成员的遍历器。
+- forEach() ：遍历 Map 的所有成员。
+
+```javascript
+const map = new Map([['a','red'],['b','blue'],['c','green']])
+for(let name of map){ //是entries()的简写
+    console.log(name) // [ 'a', 'red' ] [ 'b', 'blue' ] ['c','green']
+}
+
+for(let key of map.keys()){ //只是循环 key
+    console.log(key)  // a  b  c
+}
+
+for(let key of map.values()){ //只是循环 value
+    console.log(key)  // red blue green
+}
+```
+
+#### `for…in`和`for…of`区别
+
+```javascript
+const arr = ['red','blue','green'];
+//for…in
+for(let i in arr){
+    console.log(i) //0 1 2， 循环的是索引值
+}    //注意：for…in 不能用于 Set和Map，没有效果
+
+//for…of
+for(let i of arr){ //默认替代arr.values()
+    console.log(i) //red blue green， 循环的是值
+}
+//也可以用arr.keys()循环数组的索引
+for(let i of arr.keys()){
+    console.log(i) //0 1 2， 
+}
 ```
 
