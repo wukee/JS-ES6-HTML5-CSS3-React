@@ -4,6 +4,8 @@
 
 ECMAScript 和 JavaScript 的关系是，前者是后者的规格，后者是前者的一种实现（另外的 ECMAScript 方言还有 Jscript 和 ActionScript）。日常场合，这两个词是可以互换的。
 
+---
+
 ## 2. let const的优点
 
 ### let命令
@@ -34,6 +36,8 @@ ECMAScript 和 JavaScript 的关系是，前者是后者的规格，后者是前
 - **const 实际上保证的，并不是变量的值不得改动，而是变量指向的那个内存地址不得改动。** 
 
 ES6 规定暂时性死区和 let 、 const 语句不出现变量提升，主要是为了减少运行时错误，防止在变量声明前就使用这个变量，从而导致意料之外的行为。这样的错误在 ES5 是很常见的，现在有了这种规定，避免此类错误就很容易了。
+
+---
 
 ## 3.  ES6 新特性有哪些？区分ES6和 ES5如何区分？
 
@@ -89,7 +93,7 @@ t * t + 1;
 
 ES5 只有两种声明变量的方法： var 命令和 function 命令。ES6 除了添加 let 和 const 命令，还有 import 命令和 class 命令。所以，ES6 一共有 6 种声明变量的方法。
 
-### 变量的解构赋值
+### 解构赋值
 
 - 数组的解构赋值
 
@@ -146,6 +150,15 @@ foo // undefined
 let {length : len} = 'hello';
 len // 5
 //类似数组的对象都有一个 length 属性，因此还可以对这个属性解构赋值。
+```
+
+- 解构方法
+
+```javascript
+let {floor,pow} = Math;  //floor、pow 都是Math对象里的方法
+let a = 1.5;
+console.log(floor(a)); // 1  取整
+console.log(pow(2,3)); // 8, 2的3次方
 ```
 
 **解构赋值的规则是，只要等号右边的值不是对象或数组，就先将其转为对象。**由于 undefined 和 null 无法转为对象，所以对它们进行解构赋值，都会报错。
@@ -241,24 +254,14 @@ for (let [,value] of map) {
 以用来定义多行字符串，或者在字符串中嵌入变量。
 
 ```javascript
-function authorize(user, action) {
-if (!user.hasPrivilege(action)) {
-throw new Error(
-// 传统写法为
-// 'User '
-// + user.name
-// + ' is not authorized to do '
-// + action
-// + '.'
-`User ${user.name} is not authorized to do ${action}.`);
-}
-}
+let user = {name:'wuke',age:26}
+`User:${user.name} age:${user.age}`); //用 ${}嵌入JS代码
 
 let greeting = `\`Yo\` World!`;//如果在模板字符串中需要使用反引号，则前面要用反斜杠转义。
 
 // 如果使用模板字符串表示多行字符串，所有的空格和缩进都会被保留在输出之中。
-`In JavaScript this is
-not legal.`
+let div = `<div>  <span> ${123}</span> 
+           </div>`
 
 //模板字符串调用函数。
 function fn() {
@@ -266,6 +269,15 @@ return "Hello World";
 } 
 `foo ${fn()} bar`
 // foo Hello World bar
+
+//字符串新增方法
+let s = 'Hello world!';
+s.startsWith('Hello') // true； 返回布尔值，表示参数字符串是否在原字符串的头部
+s.endsWith('!') // true；返回布尔值，表示参数字符串是否在原字符串的尾部。 
+s.includes('o') // true；  返回布尔值，表示是否找到了参数字符串。
+
+'hello'.repeat(2) // "hellohello"//表示将原字符串重复n次。
+
 ```
 
 ### 数值的扩展
@@ -781,4 +793,233 @@ for(let i of arr.keys()){
     console.log(i) //0 1 2， 
 }
 ```
+
+---
+
+## 4. JS中常用坐标属性offset、scroll、client
+
+![img](https://images0.cnblogs.com/blog/555524/201501/251833059254129.png)**1、在文档（document）对象里面用**：
+
+**scrollWidth/Height**： 获取对象的滚动宽度(滚动条可以滚动的宽度，相当于整个页面的总宽度的样子--网页正文全宽)
+
+**scrollLeft/Top**： 设置或获取位于对象左边界和窗口中目前可见内容的最左端之间的距离（页面利用滚动条滚动到右边时，隐藏在滚动条左边的页面宽度---页面被卷去左边） 
+
+**2、 在节点对象里面用：**
+
+**offsetLeft/Top**:获取对象相对于版面（css里面没有进行定位，则offsetParent取值为根元素进行计算）或由 offsetParent 属性指定的父坐标的计算左侧位置（当有css定位时，当前对象相对与offsetParent元素的距离）
+
+**offsetWidth/Height (width+padding+border)**获取当前对象（`div`）的宽度。
+
+style.width也是当前对象的宽度(width+padding+border)。
+
+区别：1) style.width返回值除了数字外还带有单位px；
+
+​           2) 如对象的宽度设定值为百分比宽度,则无论页面变大还是变小，style.width都返回此百分比,而offsetWidth
+
+​              则返回在不同页面中对象的宽度值而不是百分比值；
+
+​           3) 如果没有给 HTML 元素指定过 width样式，则 style.width 返回的是空字符串；
+
+**offsetLeft :**
+
+当前对象到其上级层左边的距离。不能对其进行赋值.设置对象到其上级层左边的距离请用style.left属性。style.left当前对象到其上级层左边的距离。
+
+区别：1) style.left返回值除了数字外还带有单位px；
+
+​           2) 如对象到其上级层左边的距离设定值为百分比，style.left返回此百分比,而offsetLeft则返回到其上级层左
+
+​               边的距离的值；
+
+​           3) 如果没有给 HTML 元素指定过 left样式，则 style.left返回的是空字符串；
+
+**clientWidth/Height:** 
+
+获取对象可见内容的宽度，不包括滚动条，不包括边框；
+
+**clientLeft/Top:**
+
+ 获取对象的border宽度
+
+**3、事件里面用的**：
+
+- event.clientX 相对文档的水平座标
+
+
+- event.clientY 相对文档的垂直座标
+
+
+- event.offsetX 相对容器的水平坐标
+
+
+- event.offsetY 相对容器的垂直坐标
+
+**4、屏幕的：**
+
+- window.screenTop 网页正文部分上
+
+
+- window.screenLfet 网页正文部分左
+
+
+- window.screen.height  屏幕分辨律的高
+
+
+- window.screen.left  屏幕分辨律的宽
+
+
+- window.screen.availHeight  屏幕可用工作区的高度
+- window.screen.availWidth  屏幕可用工作区的宽度
+- document.documentElement.scrollTop 垂直方向滚动的值
+
+>网页可见区域宽： document.body.clientWidth;
+>
+>网页可见区域高： document.body.clientHeight;
+>
+>网页可见区域宽： document.body.offsetWidth   (包括边线的宽);
+>
+>网页可见区域高： document.body.offsetHeight  (包括边线的宽);
+>网页正文全文宽： document.body.scrollWidth;
+>网页正文全文高： document.body.scrollHeight;
+>网页被卷去的高： document.body.scrollTop;
+>网页被卷去的左： document.body.scrollLeft;
+>网页正文部分上： window.screenTop;
+>网页正文部分左： window.screenLeft;
+>屏幕分辨率的高： window.screen.height;
+>屏幕分辨率的宽： window.screen.width;
+>屏幕可用工作区高度： window.screen.availHeight;
+>
+>屏幕可用工作区宽度：window.screen.availWidth;
+
+***
+
+## 5. Promise与异步编程
+
+Promise就是一个对象，用来传递异步操作的数据（消息）。
+
+**有两种状态：**
+
+​        pending（等待、处理中）--->Resolve(完成)
+
+​                                                      --->Rejected(拒绝、失败)
+
+**使用方法：**
+
+```javascript
+let p1=new Promise((resolve,reject)=>{ //里面是一个函数
+    //resolve  成功了
+    //reject    失败了
+});
+p1.then(Success(resolve){
+        //成功数据
+        },Failure(resolve){
+        //失败数据
+  })；
+/*相当于
+var p1=new Promise(function(resole,reject){
+      if(异步处理成功){
+                resolve（成功数据）；
+           }else{
+                 reject（失败数据）；
+           }
+})； */
+  
+//示例
+let p1 = new Promise((resolve,reject)=>{
+    reject(2);
+});
+p1.then(
+    (value)=>{
+     console.log(`成功了：${value}`);
+      },
+    (value)=>{
+     console.log(`失败了：${value}`);
+})
+// 2；上面是reject（2），p1.then 就执行第二个函数
+```
+
+**Promise的属性和方法：**
+
+- `Promise.catch`：用来捕获错误
+
+
+- `Promise.all`： 用于将多个`Promise`对象，组合，包装成一个全新的`Promise`实例；`Promise.all([p1,p2,p3...])`; 所有的`Promise`对象都正确才走成功，否则，只要有一个错误，就失败。
+
+
+- `Promise.race`  最先能执行的promise结果，哪个最快用哪个，返回的还是一个Promise对象。
+- `Promise.reject()`  生成一个错误的promise对象
+
+
+- `Promise.resolve()`   生成一个成功的promise对象
+
+  语法：`Promise.resolve(value)`
+
+  ​            `Promise.resolve(Promise)`
+
+---
+
+## 6. Generator（生成器）
+
+Generator是一个函数，可以遍历。Generator本质是一个状态机，执行一次停一次，主要配合异步操作。
+
+语法形式上：
+
+- 函数名字前有 *
+- 函数内部使用 `yield` 语句
+
+```javascript
+function *show(){
+    yield xxx;
+    ......
+}
+```
+
+Generator自带`next()`方法，
+
+```javascript
+function *show() {
+    yield 'Hello';
+    yield 'Wuke';
+    yield 'Es6';
+    //return Generator函数一般不用return
+}
+let res = show();
+console.log(res.next());  //{ value: 'Hello', done: false }
+console.log(res.next());  //{ value: 'Wuke', done: false }
+console.log(res.next());  //{ value: 'Es6', done: false }
+console.log(res.next());  //{ value: 'undefined', done: true} 没有return返回值所以此处value为undefined，done为true表示遍历结束。
+```
+
+`next()` 方法，每次返回一个包含value（`yield`的值）和done的对象；value，是每次`yield`后面的值；done 是一个布尔值，代表是否遍历结束。(`next()`方法也可以带参数，给上一个yield值)；
+
+`yield` 语句 类似于return，本身没有返回值，或者说每次返回值undefined;
+
+Generrator函数可用于`for…of`循环
+
+```javascript
+function *fn() {
+    yield 1;
+    yield 2;
+    yield 3;
+    yield 4;
+    return 5;
+}
+for(let val of fn()){
+    console.log(val)
+}
+// 1 2 3 4 ;注意：没有5 因为遍历到return时结束，done为true
+```
+
+Generrator函数放到对象里面：
+
+```javascript
+let obj={
+    name:'wuke',
+    *show(){
+           yield 'xxx';
+           yield 'xxx';
+     }
+}
+```
+
+
 
