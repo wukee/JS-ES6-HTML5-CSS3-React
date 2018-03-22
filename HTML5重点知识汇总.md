@@ -1,4 +1,4 @@
-# HTML5重点知识汇总
+# HTML5重点知识汇总（[HTML5新特性一览](http://www.cnblogs.com/star91/p/5659134.html)）
 
 ## 1. HTML5新特性，语义化
 
@@ -21,7 +21,7 @@
 - 比`<div>`标签有更加丰富的含义，方便开发与维护
 - 搜索引擎能更方便的识别页面的每个部分
 
-![html5-layout](C:\Users\Administrator\Desktop\html5-layout.jpg)
+---
 
 ## 2. HTML5新增标签与废除标签有哪些？
 
@@ -36,6 +36,8 @@
 - 能使用CSS替代的元素：basefont、big、center、font、s、tt、u等
 - 不在使用frame框架
 - 只有部分浏览器支持的元素
+
+---
 
 ## 3. 新增全局属性
 
