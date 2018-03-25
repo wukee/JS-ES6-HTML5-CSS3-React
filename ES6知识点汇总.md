@@ -479,6 +479,38 @@ return inner(a);
 
 ### 数组的扩展
 
+#### **【回顾】js中Array数组中的常用方法汇总**
+
+| 方法                                                         | 描述                                                         |
+| ------------------------------------------------------------ | :----------------------------------------------------------- |
+| [concat()](http://www.runoob.com/jsref/jsref-concat-array.html) | 连接两个或更多的数组，并返回结果。                           |
+| [copyWithin()](http://www.runoob.com/jsref/jsref-copywithin.html) | 从数组的指定位置拷贝元素到数组的另一个指定位置中。           |
+| [every()](http://www.runoob.com/jsref/jsref-every.html)      | 检测数值元素的每个元素是否都符合条件。                       |
+| [fill()](http://www.runoob.com/jsref/jsref-fill.html)        | 使用一个固定值来填充数组。                                   |
+| [filter()](http://www.runoob.com/jsref/jsref-filter.html)    | 检测数值元素，并返回符合条件所有元素的数组。                 |
+| [find()](http://www.runoob.com/jsref/jsref-find.html)        | 返回符合传入测试（函数）条件的数组元素。                     |
+| [findIndex()](http://www.runoob.com/jsref/jsref-findindex.html) | 返回符合传入测试（函数）条件的数组元素索引。                 |
+| [forEach()](http://www.runoob.com/jsref/jsref-foreach.html)  | 数组每个元素都执行一次回调函数。                             |
+| [indexOf()](http://www.runoob.com/jsref/jsref-indexof-array.html) | 搜索数组中的元素，并返回它所在的位置。                       |
+| [join()](http://www.runoob.com/jsref/jsref-join.html)        | 把数组的所有元素放入一个字符串。                             |
+| [lastIndexOf()](http://www.runoob.com/jsref/jsref-lastindexof-array.html) | 返回一个指定的字符串值最后出现的位置，在一个字符串中的指定位置从后向前搜索。 |
+| [map()](http://www.runoob.com/jsref/jsref-map.html)          | 通过指定函数处理数组的每个元素，并返回处理后的数组。         |
+| [pop()](http://www.runoob.com/jsref/jsref-pop.html)          | 删除数组的最后一个元素并返回删除的元素。                     |
+| [push()](http://www.runoob.com/jsref/jsref-push.html)        | 向数组的末尾添加一个或更多元素，并返回新的长度。             |
+| [reduce()](http://www.runoob.com/jsref/jsref-reduce.html)    | 将数组元素计算为一个值（从左到右）。                         |
+| [reduceRight()](http://www.runoob.com/jsref/jsref-reduceright.html) | 将数组元素计算为一个值（从右到左）。                         |
+| [reverse()](http://www.runoob.com/jsref/jsref-reverse.html)  | 反转数组的元素顺序。                                         |
+| [shift()](http://www.runoob.com/jsref/jsref-shift.html)      | 删除并返回数组的第一个元素。                                 |
+| [slice()](http://www.runoob.com/jsref/jsref-slice-array.html) | 选取数组的的一部分，并返回一个新数组。                       |
+| [some()](http://www.runoob.com/jsref/jsref-some.html)        | 检测数组元素中是否有元素符合指定条件。                       |
+| [sort()](http://www.runoob.com/jsref/jsref-sort.html)        | 对数组的元素进行排序。                                       |
+| [splice()](http://www.runoob.com/jsref/jsref-splice.html)    | 从数组中添加或删除元素。                                     |
+| [toString()](http://www.runoob.com/jsref/jsref-tostring-array.html) | 把数组转换为字符串，并返回结果。                             |
+| [unshift()](http://www.runoob.com/jsref/jsref-unshift.html)  | 向数组的开头添加一个或更多元素，并返回新的长度。             |
+| [valueOf()](http://www.runoob.com/jsref/jsref-valueof-array.html) | 返回数组对象的原始值。                                       |
+
+#### 扩展运算符
+
 扩展运算符（spread）是三个点（` ... `）。它好比 rest 参数的逆运算，将一个数组转为用逗号分隔的参数序列。
 
 ```javascript
@@ -532,6 +564,8 @@ let map = new Map([
   ]);
 let arr = [...map.keys()]; // [1, 2, 3]
 ```
+
+#### **`Array.from`** 和`Array.of` 方法
 
 **`Array.from`** 方法用于将两类对象转为真正的数组：类似数组的对象和可遍历的对象.
 
@@ -798,7 +832,18 @@ for(let i of arr.keys()){
 
 ## 4. JS中常用坐标属性offset、scroll、client
 
-![img](https://images0.cnblogs.com/blog/555524/201501/251833059254129.png)**1、在文档（document）对象里面用**：
+![img](https://images0.cnblogs.com/blog/555524/201501/251833059254129.png)
+
+**js中常见的位置距离：**
+
+|    offset    |    client    |    scroll    |     event     |
+| :----------: | :----------: | :----------: | :-----------: |
+| offsetWidth  | clientWidth  | scrollWidth  | event.clientX |
+| offsetHeight | clientHeight | scrollHeight | event.clientY |
+|  offsetLeft  |  clientLeft  |  scrollLeft  | event.offsetX |
+|  offsetTop   |  clientTop   |  scrollTop   | event.offsetY |
+
+**1、在文档（document）对象里面用**：
 
 **scrollWidth/Height**： 获取对象的滚动宽度(滚动条可以滚动的宽度，相当于整个页面的总宽度的样子--网页正文全宽)
 
@@ -806,52 +851,30 @@ for(let i of arr.keys()){
 
 **2、 在节点对象里面用：**
 
-**offsetLeft/Top**:获取对象相对于版面（css里面没有进行定位，则offsetParent取值为根元素进行计算）或由 offsetParent 属性指定的父坐标的计算左侧位置（当有css定位时，当前对象相对与offsetParent元素的距离）
+**offsetLeft/Top :** 当前对象到其**父级容器左边/上边的距离**。（css里面没有进行定位时，则offsetParent取值为根元素进行计算；当有css定位时，当前对象相对与offsetParent元素的距离）
 
-**offsetWidth/Height (width+padding+border)**获取当前对象（`div`）的宽度。
+**offsetWidth/Height (width+padding+border)** 获取当前对象的宽度/高度。
 
-style.width也是当前对象的宽度(width+padding+border)。
+**clientWidth/Height:** 获取**浏览器可视区的宽度/高度**，不包括滚动条，不包括边框；
 
-区别：1) style.width返回值除了数字外还带有单位px；
-
-​           2) 如对象的宽度设定值为百分比宽度,则无论页面变大还是变小，style.width都返回此百分比,而offsetWidth
-
-​              则返回在不同页面中对象的宽度值而不是百分比值；
-
-​           3) 如果没有给 HTML 元素指定过 width样式，则 style.width 返回的是空字符串；
-
-**offsetLeft :**
-
-当前对象到其上级层左边的距离。不能对其进行赋值.设置对象到其上级层左边的距离请用style.left属性。style.left当前对象到其上级层左边的距离。
-
-区别：1) style.left返回值除了数字外还带有单位px；
-
-​           2) 如对象到其上级层左边的距离设定值为百分比，style.left返回此百分比,而offsetLeft则返回到其上级层左
-
-​               边的距离的值；
-
-​           3) 如果没有给 HTML 元素指定过 left样式，则 style.left返回的是空字符串；
-
-**clientWidth/Height:** 
-
-获取对象可见内容的宽度，不包括滚动条，不包括边框；
-
-**clientLeft/Top:**
-
- 获取对象的border宽度
+**clientLeft/Top:** 元素的内边距的外边缘和边框的外边缘的距离，实际就是边框的**左边框宽度/上边框宽度**
 
 **3、事件里面用的**：
 
-- event.clientX 相对文档的水平座标
+![img](http://img.blog.csdn.net/20150502094344891?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbHpkaW5n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
+
+- event.clientX  鼠标指针相对于浏览器窗口的水平坐标
 
 
-- event.clientY 相对文档的垂直座标
+- event.clientY  鼠标指针相对于浏览器窗口的垂直座标
 
 
-- event.offsetX 相对容器的水平坐标
+- event.offsetX  鼠标指针相对于所点中容器的水平坐标
 
 
-- event.offsetY 相对容器的垂直坐标
+- event.offsetY  鼠标指针相对于所点中容器的垂直坐标
+- event.pageX  鼠标指针相对于页面的水平坐标，不随页面滚动而发生变化
+- event.pageY  鼠标指针相对于页面的垂直坐标，不随页面滚动而发生变化
 
 **4、屏幕的：**
 
