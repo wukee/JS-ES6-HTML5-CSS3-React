@@ -16,10 +16,21 @@
 
 ### 语义化标签
 
-所谓语义化标签就是一种我们仅通过标签名就能判断出该标签内容的语义的标签。引入语义化标签的好处主要有下列两点：
+所谓语义化标签就是一种我们仅通过标签名就能判断出该标签内容的语义的标签。一个典型的WEB页面包含头部，脚部，导航，中心区域，侧边栏。现在如果我们想在在HTML4的HTML区域中呈现这些内容，我们可能要使用DIV标签。但是在HTML5中通过为这些区域创建元素名称使他们更加清晰，也使得你的HTML更加可读。
 
-- 比`<div>`标签有更加丰富的含义，方便开发与维护
-- 搜索引擎能更方便的识别页面的每个部分
+![img](https://mmbiz.qpic.cn/mmbiz_jpg/eXCSRjyNYcZjb21CYHAQzVgcRrvlQvRial6UbhMnjWZPepKVo6MbQGBs2jWG2m6Jib18SBTGIBVjwS7nRIOuXIww/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1)
+
+**➤<header>：代表HTML的头部数据**
+
+**➤<footer>：页面的脚部区域**
+
+**➤<nav>：页面导航元素**
+
+**➤<article>：自包含的内容**
+
+**➤<section>：使用内部article去定义区域或者把分组内容放到区域里**
+
+**➤<aside>：代表页面的侧边栏内容**
 
 ---
 
@@ -42,13 +53,182 @@
 ## 3. 新增全局属性
 
 - contentEditable：规定是否允许用户编辑内容
-
 - designMode：制定整个页面是否可编辑，可编辑时支持contentEditable属性都变为可编辑状态
-
-- hidden：规定该元素是无关的。被隐藏的元素不会显示
-
+- hidden：规定该元素是否被隐藏，被隐藏的元素不会显示
 - spellcheck：规定是否必须对元素进行拼写或语法检查
+- tabindex：规定元素的 tab 键控制次序，用Tab键来遍历页面的所有元素。
 
-- tabindex：规定元素的 tab 键控制次序。
+## 4. HTML5中什么是不同的新的表单元素类型？
 
-  ​
+这里有10个重要的新的表单元素在HTML5中被介绍：
+
+1. Color
+2. Date
+3. Datetime-local
+4. Email
+5. Time
+6. Url
+7. Range
+8. Telephone
+9. Number
+10. Search
+
+## 5. **SGML（标准通用标记语言）和HTML（超文本标记语言），XML（可扩展标记语言）和HTML的之间有什么关系？**
+
+SGML（标准通用标记语言）是一个标准，告诉我们怎么去指定文档标记。他是只描述文档标记应该是怎么样的元语言，HTML是被用SGML描述的标记语言。
+
+因此利用SGML创建了HTML参照和必须共同遵守的DTD，你会经常在HTML页面的头部发现“DOCTYPE”属性，用来定义用于解析目标DTD。
+
+> ```html
+> <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" 
+> "http://www.w3.org/TR/html4/strict.dtd">
+> ```
+
+现在解析SGML是一件痛苦的事情，所以创建了XML使事情更好。XML使用了SGML，例如：在SGML中你必须使用起始和结束标签，但是在XML你可以有自动关闭的结束标签。
+
+XHTML创建于XML，他被使用在HTML4.0中。你可以参考下面代码片段中展示的XML DTD。
+
+> ```html
+> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+> "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+> ```
+
+![img](https://mmbiz.qpic.cn/mmbiz_jpg/eXCSRjyNYcZjb21CYHAQzVgcRrvlQvRiaxaeN9QykBfNFfm1ENEibsRs6JLNsS4yKY0B011ly5E94svUZEB8rf9w/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1)
+
+总之，SGML是所有类型的父类，较旧的HTML利用SGML，HTML4.0使用派生自XML的XHTML。
+
+## 6.**HTML5中的datalist是什么？**
+
+HTML5中的Datalist元素有助于提供文本框自动完成特性，如下图所示：
+
+![img](https://mmbiz.qpic.cn/mmbiz_jpg/eXCSRjyNYcZjb21CYHAQzVgcRrvlQvRia0AFfW9K6veCRULia8uWiaqALbmXLsYYvssqz6lZc24Jiam8Gq66dHEjYQ/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1)
+
+```html
+<input list="Country">
+<datalist id="Country">
+  <option value="India">
+  <option value="Italy">
+  <option value="Iran">
+  <option value="Israel">
+  <option value="Indonesia">
+</datalist>
+```
+
+## 7. **什么是SVG（Scalable Vector Graphics可缩放矢量图形）？**
+
+SVG（Scalable Vector Graphics可缩放矢量图形）表示可缩放矢量图形。他是基于文本的图形语言，使用文本，线条，点等来进行图像绘制，这使得他轻便，显示更加迅速。
+
+比方说，我们希望使用HTML5 SVG去显示以下简单的线条。![img](https://mmbiz.qpic.cn/mmbiz_jpg/eXCSRjyNYcZjb21CYHAQzVgcRrvlQvRia3b2XvsComRUSqUiaYRwVn8qofNIba29G8YMicQBBwzsTTysibf9hZbWLw/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1)
+
+下面是HTML5代码
+
+> ```html
+> <svg id="svgelem" height="
+> [object SVGAnimatedLength]" 
+> xmlns="http://www.w3.org/2000/svg">
+> <line style="stroke: rgb(255, 0, 0); 
+> stroke-width: 2px;" 
+> y2="[object SVGAnimatedLength]"
+>  x2="[object SVGAnimatedLength]"
+>   y1="[object SVGAnimatedLength]"
+>    x1="[object SVGAnimatedLength]">
+> </line>
+> ```
+
+## 8.**HTML5中canvas是什么？**
+
+Canvas是HTML中你可以绘制图形的区域，我们如何使用Canvas来画一条简单的线？
+
+1. 定义Canvas区域
+2. 获取访问canvas上下文区域
+3. 绘制图形
+
+➤定义Canvas区域
+
+定义Canvas区域你需要使用下面的HTML代码，这定义了你能进行绘图的区域。
+
+> ```html
+> <canvas id="mycanvas" 
+> width="600"
+>  height="500" 
+>  style="border:1px solid #000000;">
+>  </canvas>
+> ```
+
+➤获取画布区域的访问。
+
+在画布上进行绘图我们首先需要获取上下文区域的关联，下面是获取画布区域的代码。
+
+> ```html
+> var c=document.getElementById("mycanvas");
+> var ctx=c.getContext("2d");
+> ```
+
+➤绘制图形
+
+现在一旦你获取了访问上下文，我们就可以开始在上下文中绘制了。首先调用“move”方法并从一个点开始，使用线条方法绘制线条然后使用stroke方法结束。
+
+> ```html
+> ctx.moveTo(10,10);
+> ctx.lineTo(200,100);
+> ctx.stroke();
+> ```
+
+以下是完整的代码。
+
+> ```html
+> <body  onload="DrawMe();">
+> <canvas id="mycanvas" width="600" 
+> height="500" 
+> style="border:1px solid #000000;">
+> </canvas>
+> </body>
+> <script>
+> function DrawMe()
+> {
+> var c=document.getElementById("mycanvas");
+> var ctx=c.getContext("2d");
+> ctx.moveTo(10,10);
+> ctx.lineTo(200,100);
+> ctx.stroke();
+> }
+> ```
+
+你可以得到以下输出。
+
+![img](https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcZjb21CYHAQzVgcRrvlQvRiaLOoo29gMwS9MCsBibHJ17etJwxWrxxgPLjwJGQoULNibJExEW0HSbH1w/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1)
+
+**Canvas和SVG图形的区别是什么？**
+
+Note：-如果你看了之前的两个的问题，Canvas和SVG都可以在浏览器上绘制图形。因此在这个问题中，面试官想知道你在什么时候选用哪种方式。
+
+| SVG                                                          | Canvas                                                     |
+| ------------------------------------------------------------ | ---------------------------------------------------------- |
+| 这个就好像绘制和记忆，换句话说任何使用SVG绘制的形状都能被记忆和操作，浏览器可以再次显示 | Canvas就像绘制和忘记，一旦绘制完成你不能访问像素和操作它   |
+| SVG对于创建图形例如CAD软件是良好的，一旦东西绘制，用户就想去操作它 | Canvas在绘制和忘却的场景例如动画和游戏是良好的             |
+| 因为为了之后的操作，需要记录坐标，所以比较缓慢               | 因为没有记住以后事情的意向，所以更快                       |
+| 我们可以用绘制对象的相关事件处理                             | 我们不能使用绘制对象的相关事件处理，因为我们没有他们的参考 |
+| 分辨率无关                                                   | 分辨率相关                                                 |
+
+## 9. **如何使用Canvas和HTML5中的SVG去画一个矩形？**
+
+HTML5使用SVG绘制矩形的代码
+
+```html
+<svg xmlns="http://www.w3.org/2000/svg"
+ version="1.1">
+<rect style="fill: rgb(0, 0, 255); 
+stroke-width: 1px; stroke: rgb(0, 0, 0);
+" height="[object SVGAnimatedLength]" 
+width="[object SVGAnimatedLength]">
+</rect>
+```
+
+HTML5使用Canvas绘制矩形的代码
+
+> ```html
+> var c=document.getElementById("mycanvas");
+> var ctx=c.getContext("2d");
+> ctx.rect(20,20,150,100);
+> ctx.stroke();
+> ```
