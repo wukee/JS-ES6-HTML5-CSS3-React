@@ -843,11 +843,11 @@ for(let i of arr.keys()){
 |  offsetLeft  |  clientLeft  |  scrollLeft  | event.offsetX |
 |  offsetTop   |  clientTop   |  scrollTop   | event.offsetY |
 
-**1、在文档（document）对象里面用**：
+**1、在文档（document.documentElement.scrollLeft）对象里面用**：
 
-**scrollWidth/Height**： 获取对象的滚动宽度(滚动条可以滚动的宽度，相当于整个页面的总宽度的样子--网页正文全宽)
+**scrollWidth/Height**： 获取整个页面的宽度/高度（包括滚动的距离）
 
-**scrollLeft/Top**： 设置或获取位于对象左边界和窗口中目前可见内容的最左端之间的距离（页面利用滚动条滚动到右边时，隐藏在滚动条左边的页面宽度---页面被卷去左边） 
+**scrollLeft/Top**：只获取水平/垂直**滚动距离**， 与鼠标焦点无关。
 
 **2、 在节点对象里面用：**
 
@@ -855,7 +855,7 @@ for(let i of arr.keys()){
 
 **offsetWidth/Height (width+padding+border)** 获取当前对象的宽度/高度。
 
-**clientWidth/Height:** 获取**浏览器可视区的宽度/高度**，不包括滚动条，不包括边框；
+**clientWidth/Height:** 获取**浏览器可视区的宽度/高度**，不包括滚动条，不包括边框，随浏览器窗口大小改变；
 
 **clientLeft/Top:** 元素的内边距的外边缘和边框的外边缘的距离，实际就是边框的**左边框宽度/上边框宽度**
 
@@ -873,8 +873,8 @@ for(let i of arr.keys()){
 
 
 - event.offsetY  鼠标指针相对于所点中容器的垂直坐标
-- event.pageX  鼠标指针相对于页面的水平坐标，不随页面滚动而发生变化
-- event.pageY  鼠标指针相对于页面的垂直坐标，不随页面滚动而发生变化
+- event.pageX  鼠标指针相对于页面的水平坐标，随页面水平滚动而发生变化  pageX = clientX + scrollLeft （水平滚动距离）
+- event.pageY  鼠标指针相对于页面的垂直坐标，随页面垂直滚动而发生变化  pageY = clientY + scrollTop （垂直滚动距离）
 
 **4、屏幕的：**
 
