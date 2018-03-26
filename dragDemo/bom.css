@@ -1,0 +1,86 @@
+body{
+    margin: 0px;
+    padding: 0px;
+}
+
+#nav{
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    font-size: 2.5em;
+    font-weight: bold;
+    color: chocolate;
+    background-color: #939bb1;
+}
+
+#container{
+    height: 1500px;
+    text-align: center;
+    font-size: 2.5em;
+    font-weight: bold;
+    display: flex;
+    background-color: #a4cc70;
+}
+
+#side{
+    height: 1500px;
+    width: 10%;
+    line-height: 1000px;
+    text-align: center;
+    color: #697f6a;
+    background-color: #d4a86d;
+}
+
+#content{
+    height: 800px;
+    width:88%;
+    text-align: center;
+    color: #c7c84d;
+    margin: 2%;
+    /*display: flex;*/
+    /*flex-flow: row;*/
+    /*align-items: center;*/
+    /*justify-content: space-between;*/
+    position: relative;
+    top: 100px;
+    background-color: #bc9cab;
+    /*box-sizing: border-box;*/
+    /*overflow-y: scroll;*/
+    user-select: none;  /*禁止鼠标捕获该元素里所有文字包括子元素*/
+}
+
+#div1{
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    left: 100px;
+    top: 150px;
+    line-height: 300px;
+    color: #6d9f69;
+    text-align: center;
+    background-color: #8fa7cc;
+}
+
+#div2{
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    left: 500px;
+    top:150px;
+    line-height: 300px;
+    color: #767c96;
+    text-align: center;
+    background-color: #cc6970;
+}
+
+#div3{
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    left: 900px;
+    top:150px;
+    line-height: 300px;
+    color: #ccc8c9;
+    text-align: center;
+    background-color: #21a83d;
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>页面布局</title>
+    <link href="bom.css" rel="stylesheet" type="text/css">
+    <style>
+
+    </style>
+</head>
+<body>
+<script>
+    window.onload=function () {
+        function divMove(div) {
+        var oDiv=document.getElementById(div);
+        var disX=0;
+        var disY=0;
+        oDiv.onmousedown=function (ev) {
+            var oEvent = ev||event;
+            disX = oEvent.clientX - oDiv.offsetLeft;
+            disY = oEvent.clientY - oDiv.offsetTop;
+            document.onmousemove=function (ev) {
+                var oEvent = ev||event;
+                var l = oEvent.clientX - disX;
+                var t = oEvent.clientY - disY;
+                var content = document.getElementById('content')
+
+                if(l<0){
+                    l = 0;
+                }else if(l>content.offsetWidth -oDiv.offsetWidth){
+                    l = content.offsetWidth-oDiv.offsetWidth
+                }
+
+                if(t<0){
+                    t = 0;
+                }else if(t>content.offsetHeight-oDiv.offsetHeight){
+                    t = content.offsetHeight-oDiv.offsetHeight
+                }
+
+                oDiv.style.left = l + 'px';
+                oDiv.style.top = t + 'px';
+            };
+
+            document.onmouseup=function () {
+                document.onmousemove=null;
+                document.onmouseup=null;
+            }
+          }
+        }
+
+        var oDiv3=document.getElementById('div3');
+        oDiv3.onmouseover=function () {
+            divMove('div3');
+        };
+        var oDiv2=document.getElementById('div2');
+        oDiv2.onmouseover =function () {
+            divMove('div2');
+        };
+        var oDiv1=document.getElementById('div1');
+        oDiv1.onmouseover =function () {
+            divMove('div1');
+        };
+
+    }
+</script>
+<div id="nav">
+    <span>NavigationBar</span>
+</div>
+<div id="container">
+    <div id="side">
+        <span>SideBar</span>
+    </div>
+    <!--<span id="s1">Container</span>-->
+    <div id="content">
+        <span id="s2">Content</span>
+         <div id="div1"><span>div1</span></div>
+        <!--<input id="btn1" type="button" value="测距" onclick="oBtn()">-->
+        <div id="div2"><span>div2</span></div>
+        <div id="div3"><span>div3</span></div>
+
+    </div>
+</div>
+</body>
+</html>
