@@ -232,3 +232,90 @@ HTML5使用Canvas绘制矩形的代码
 > ctx.rect(20,20,150,100);
 > ctx.stroke();
 > ```
+
+## 10. HTML三种样式表插入方法
+
+1. 外部样式表：
+
+   ```html
+   <link rel="stylesheet" type="text/css" href="mystyle.css">
+   ```
+
+2. 内部样式表：
+
+   ```html
+   <style>
+       div{
+           .....
+       }
+       </style>
+
+   ```
+
+3. 内联样式表：
+
+   ```html
+   <div style="color:red">
+       ......
+   </div>
+   ```
+
+## 11. `<a>`标签和`<img>`标签属性及href与src的区别
+
+### **`<a>` 标签属性：** 
+
+1. href 属性：指向另一个文档的链接或者一个具体的路径。
+
+2. name 属性：创建文档内的链接。
+
+   ```html
+   <a href="http://www.baidu.con">百度</a>
+
+   <a name="link">Hello</a>
+   <a href="#link">跳转到Hello</a>
+   ```
+
+### **`<img>`标签属性：**
+
+1. src 属性：指向图片的具体路径。
+
+2. alt 属性：替换文本属性，当图片加载不出来时图片区域显示的文字
+
+3. width： 图片显示的宽度
+
+4. height：图片显示的高度
+
+   ```html
+   <img src="html.png" width="100px" height="100px" alt="主题">
+   ```
+
+### **href、src与url区别：**
+
+1.  href 是Hypertext Reference的缩写，表示超文本**引用**。用来建立当前文档和外部资源之间的链接。常用的有：`<link>`、`<a>` 例如：
+
+   ```html
+   <link href="CSS3.css" type="text/css" rel="stylesheet">
+   <a href="http://www.baidu.con">百度</a>
+   ```
+
+    浏览器会识别该文档为css文档，并行下载该文档，并且不会停止对当前文档的处理。这也是建议使用link，而不采用@import加载css的原因。
+
+2.  src 是source的缩写，src 的内容是页面必不可少的一部分，是**引入**。src指向的内容会嵌入到文档中当前标签所在的位置。常用的有：img、script 例如
+
+   ```javascript
+   <script src="script.js"></script>  
+   <img src="html.png">
+   ```
+
+   在浏览器下载，编译，执行这个文件之前页面的加载和处理会被暂停。这个过程与把js文件放到`<script>`标签里类似。这也是建议把JS文件放到底部加载的原因。当然，img标签页与此类似。浏览器暂停加载直到提取和加载图像。
+
+3.  URL：统一资源定位符[详情](https://segmentfault.com/a/1190000002877022)
+
+   ```css
+   #div{  /*CSS中加载图片的方式*/
+    background-image:url("img/bg.png");
+   }
+
+   ```
+
+   ​
