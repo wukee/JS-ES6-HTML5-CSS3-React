@@ -1,5 +1,9 @@
 # HTML5重点知识汇总（[HTML5新特性一览](http://www.cnblogs.com/star91/p/5659134.html)）
 
+[TOC]
+
+---
+
 ## 1. HTML5新特性，语义化
 
 ### HTML5新特性
