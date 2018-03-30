@@ -147,9 +147,14 @@ stretch（默认值）：轴线占满整个交叉轴。
 **浮动元素的特征：**
 
 1. 浮动元素脱离文档流。
+
 2. 浮动元素周围的外边距不会合并。
+
 3. 浮动元素具有包裹性。
+
 4. 浮动元素具有破坏性。
+
+   **[浮动布局效果](http://localhost:63342/untitled/float2.html?_ijt=29aog4dotmap4leu6rvvao3qd3)**
 
 ![float](F:\webstormWorkspace\ES6-HTML5-CSS3\ignore\float.jpg)
 
@@ -205,14 +210,14 @@ stretch（默认值）：轴线占满整个交叉轴。
 
      如果浏览器的高为300px、宽为500px，那么1vmin就是3px，1vmax就是5px；如果浏览器的高为800px，宽为1080px，那么1vmin也是8px，1vmax也是10.8px。
 
-### 颜色表示：
+### 颜色表示
 
-| 单位            | 描述                                |
-| --------------- | ----------------------------------- |
-| (颜色名)        | 颜色名称 (比如 red)                 |
-| rgb(x,x,x)      | RGB 值 (比如 rgb(255,0,0))          |
-| rgb(x%, x%, x%) | RGB 百分比值 (比如 rgb(100%,0%,0%)) |
-| `#rrggbb`       | 十六进制数 (比如 #ff0000)           |
+| 单位              | 描述                                |
+| ----------------- | ----------------------------------- |
+| (颜色名)          | 颜色名称 (比如 red)                 |
+| `rgb(x,x,x)`      | RGB 值 (比如 rgb(255,0,0))          |
+| `rgb(x%, x%, x%)` | RGB 百分比值 (比如 rgb(100%,0%,0%)) |
+| `#rrggbb`         | 十六进制数 (比如 #ff0000)           |
 
 ---
 
@@ -361,16 +366,91 @@ stretch（默认值）：轴线占满整个交叉轴。
 
 **可以在css样式中用`display:inline`将块级元素设为行级元素；同样，也可以用`display:block`将行级元素设为块级元素**
 
+---
+
 ## 7. CSS3选择器注意点
 
-1. **通配符，是对所有标签设置的样式**
+### **(1) 通配符，是对所有标签设置的样式**
 
-   ```css
-   *{
-       margin:0px;
-       padding:0px;
-   }
-   /**/
-   ```
+```css
+*{
+    margin:0px;
+    padding:0px;
+}
+/*特别注意：通配符中设置内外边距为零时，会去掉所有块级元素自带的内外边距，会对表格、ul、ol、dl等标签布局造成破坏*/
+```
 
-   ​
+### **(2) 多类选择器，注意写法**
+
+```html
+<p class='p1'>hello</p>;
+<p class='p2'>hello</p>；
+<p class='p1 p2'>hello</p>； <!--注意中间用空格隔开，会继承p1和p2的样式-->
+```
+
+```css
+.p1{
+   color: red;
+};
+.p2{
+   font-size: 2em;
+};
+.p1.p2{              /*注意中间不能有空格，会继承p1和p2的样式，还会再添加自己的样式*/
+    font-style: italic;  	/*斜体*/
+}
+```
+
+### **(3) class 选择器与 id 选择器的区别**
+
+- id只能在文档中使用一次，而class可以使用多次
+- id选择器不能借个使用
+- 当使用js时候，需要用到id，(`document.getElementById`)
+
+### **(4) 属性选择器**
+
+- 根据**属性**选择
+
+- 根据具体**属性值**选择，属性和属性值完全匹配
+
+- 根据**部分属性值匹配**选择
+
+  ```html
+  <p title="tit">属性选择器</p>
+  <p title="title">属性选择器</p>
+  <p title="title hello">属性选择器</p>
+  ```
+
+  ```css
+  [title]{
+      font-size: 20px;
+      font-style: italic;
+  } /*具有title属性的样式都会改变*/
+  [title='title']{
+      color: #dc2c24;
+  }/*属性和属性值完全匹配，相当于唯一的标识*/
+  [title~=title]{
+      background-color: cadetblue;
+  }/* ~ 代表模糊匹配，含有 title 字符串的属性值 都会改变*/
+  ```
+
+### (5) 后代选择器与子元素选择器
+
+```html
+<div id="div">
+    <p> Hello <strong> wuke </strong></p>
+    <i> Hello </i>
+</div>
+```
+
+```css
+#div strong,i{
+    font-weight: bold;
+    color: #dc2c24;
+}/*后代选择器通过空格隔开，strong和i都是div的后代，*/
+#div>p>strong，#div>i{
+    color: #8997a3;
+}/*子元素选择器使用 > 来一层层寻找，不能越级，不能写成  #div>strong*/
+```
+
+**两者区别：**后代选择器可以越级，而子元素选择器只能一层一层递进。
+
