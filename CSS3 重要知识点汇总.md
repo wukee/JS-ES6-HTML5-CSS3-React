@@ -154,9 +154,8 @@ stretch（默认值）：轴线占满整个交叉轴。
 
 4. 浮动元素具有破坏性。
 
-   **[浮动布局效果](http://localhost:63342/untitled/float2.html?_ijt=29aog4dotmap4leu6rvvao3qd3)**
 
-![float](F:\webstormWorkspace\ES6-HTML5-CSS3\ignore\float.jpg)
+![141851037a5c87d6847fc7df20448ed](C:\Users\ADMINI~1\AppData\Local\Temp\WeChat Files\141851037a5c87d6847fc7df20448ed.png)
 
 5. 浮动元素块状化。不管元素本身是什么（inline/inline-block/block），只要浮动，自带display:inline-block声明
 
@@ -408,6 +407,8 @@ stretch（默认值）：轴线占满整个交叉轴。
 
 ### **(4) 属性选择器**
 
+#### 用法
+
 - 根据**属性**选择
 
 - 根据具体**属性值**选择，属性和属性值完全匹配
@@ -432,6 +433,20 @@ stretch（默认值）：轴线占满整个交叉轴。
       background-color: cadetblue;
   }/* ~ 代表模糊匹配，含有 title 字符串的属性值 都会改变*/
   ```
+
+#### CSS3新添加的三个属性选择器
+
+```css
+[title*=tit]{
+    /*和 ~= 一样，所有包含 tit 的样式*/
+}
+[title^=ti]{
+    /*以 ti 开始的头部*/
+}
+[title$=lo]{
+    /*以 lo 结束的末尾*/
+}
+```
 
 ### (5) 后代选择器与子元素选择器
 
