@@ -132,45 +132,11 @@ stretch（默认值）：轴线占满整个交叉轴。
 ### 适用场景：
 
 1. Flexbox适用于包含有多个元素的盒子的样式渲染
-2. Flexbox适用于在子元素的尺寸未知或者动态的情况下，对子元素的对齐方式、排列方式以及排序顺序进行控制展示
+2. Flexbox适用于在子元素的尺寸未知或者动态的情况下，对子元素的对齐方式、排列方式以及排序顺序进行控制展示。
 
 ---
 
-## 3. CSS float（浮动属性）
-
-**浮动属性的初衷：**
-
-浮动属性的设计初衷，只是为了**实现文本环绕效果！** 时刻牢记这一点，才能正确使用浮动。
-
-由于浮动元素脱离文档流，它后面的块级元素会忽略它的存在，占据它原本的位置，但是这个块级元素中的内联元素，在流入页面时会考虑浮动元素的边界，它们会围绕着浮动元素。
-
-**浮动元素的特征：**
-
-1. 浮动元素脱离文档流。
-
-2. 浮动元素周围的外边距不会合并。
-
-3. 浮动元素具有包裹性。
-
-4. 浮动元素具有破坏性。
-
-
-![浮动布局](./float.jpg)
-
-5. 浮动元素块状化。不管元素本身是什么（inline/inline-block/block），只要浮动，自带display:inline-block声明
-
-**小tips：**
-
-- 父元素overflow: auto; 可解决浮动元素高度塌陷问题。
-
-
-- 将元素浮动前，要设置body元素的margin和padding，以避免各浏览器的页面差异。
-
-**浮动的规则 [详情](http://www.cnblogs.com/cc156676/p/5682439.html)**
-
----
-
-## 4. CSS中的长度单位和颜色表示
+## 3. CSS中的长度单位和颜色表示
 
 ### 长度单位 [详情](https://blog.csdn.net/javaloveiphone/article/details/51120476)
 
@@ -220,7 +186,7 @@ stretch（默认值）：轴线占满整个交叉轴。
 
 ---
 
-## 5. link和@import引入css的区别
+## 4. link和@import引入css的区别
 
 - link属于html标签，而@import是css提供的。
 
@@ -262,9 +228,67 @@ stretch（默认值）：轴线占满整个交叉轴。
 
 ---
 
-## 6. CSS3选择器注意点
+## 5. CSS3选择器注意点
 
-### **(1) 通配符，是对所有标签设置的样式**
+### (1) css选择器一览表
+
+"CSS" 列指示该属性是在哪个 CSS 版本中定义的。（CSS1、CSS2 还是 CSS3。）
+
+| 选择器                                                       | 例子                  | 例子描述                                            | CSS  |
+| ------------------------------------------------------------ | --------------------- | --------------------------------------------------- | ---- |
+| [.*class*](http://www.w3school.com.cn/cssref/selector_class.asp) | .intro                | 选择 class="intro" 的所有元素。                     | 1    |
+| [#*id*](http://www.w3school.com.cn/cssref/selector_id.asp)   | #firstname            | 选择 id="firstname" 的所有元素。                    | 1    |
+| [*](http://www.w3school.com.cn/cssref/selector_all.asp)      | *                     | 选择所有元素。                                      | 2    |
+| [*element*](http://www.w3school.com.cn/cssref/selector_element.asp) | p                     | 选择所有 <p> 元素。                                 | 1    |
+| [*element*,*element*](http://www.w3school.com.cn/cssref/selector_element_comma.asp) | div,p                 | 选择所有 <div> 元素和所有 <p> 元素。                | 1    |
+| [*element* *element*](http://www.w3school.com.cn/cssref/selector_element_element.asp) | div p                 | 选择 <div> 元素内部的所有 <p> 元素。                | 1    |
+| [*element*>*element*](http://www.w3school.com.cn/cssref/selector_element_gt.asp) | div>p                 | 选择父元素为 <div> 元素的所有 <p> 元素。            | 2    |
+| [*element*+*element*](http://www.w3school.com.cn/cssref/selector_element_plus.asp) | div+p                 | 选择紧接在 <div> 元素之后的所有 <p> 元素。          | 2    |
+| [[*attribute*\]](http://www.w3school.com.cn/cssref/selector_attribute.asp) | [target]              | 选择带有 target 属性所有元素。                      | 2    |
+| [[*attribute*=*value*\]](http://www.w3school.com.cn/cssref/selector_attribute_value.asp) | [target=_blank]       | 选择 target="_blank" 的所有元素。                   | 2    |
+| [[*attribute*~=*value*\]](http://www.w3school.com.cn/cssref/selector_attribute_value_contain.asp) | [title~=flower]       | 选择 title 属性包含单词 "flower" 的所有元素。       | 2    |
+| [[*attribute*\|=*value*\]](http://www.w3school.com.cn/cssref/selector_attribute_value_start.asp) | [lang\|=en]           | 选择 lang 属性值以 "en" 开头的所有元素。            | 2    |
+| [:link](http://www.w3school.com.cn/cssref/selector_link.asp) | a:link                | 选择所有未被访问的链接。                            | 1    |
+| [:visited](http://www.w3school.com.cn/cssref/selector_visited.asp) | a:visited             | 选择所有已被访问的链接。                            | 1    |
+| [:active](http://www.w3school.com.cn/cssref/selector_active.asp) | a:active              | 选择活动链接。                                      | 1    |
+| [:hover](http://www.w3school.com.cn/cssref/selector_hover.asp) | a:hover               | 选择鼠标指针位于其上的链接。                        | 1    |
+| [:focus](http://www.w3school.com.cn/cssref/selector_focus.asp) | input:focus           | 选择获得焦点的 input 元素。                         | 2    |
+| [:first-letter](http://www.w3school.com.cn/cssref/selector_first-letter.asp) | p:first-letter        | 选择每个 <p> 元素的首字母。                         | 1    |
+| [:first-line](http://www.w3school.com.cn/cssref/selector_first-line.asp) | p:first-line          | 选择每个 <p> 元素的首行。                           | 1    |
+| [:first-child](http://www.w3school.com.cn/cssref/selector_first-child.asp) | p:first-child         | 选择属于父元素的第一个子元素的每个 <p> 元素。       | 2    |
+| [:before](http://www.w3school.com.cn/cssref/selector_before.asp) | p:before              | 在每个 <p> 元素的内容之前插入内容。                 | 2    |
+| [:after](http://www.w3school.com.cn/cssref/selector_after.asp) | p:after               | 在每个 <p> 元素的内容之后插入内容。                 | 2    |
+| [:lang(*language*)](http://www.w3school.com.cn/cssref/selector_lang.asp) | p:lang(it)            | 选择带有以 "it" 开头的 lang 属性值的每个 <p> 元素。 | 2    |
+| [*element1*~*element2*](http://www.w3school.com.cn/cssref/selector_gen_sibling.asp) | p~ul                  | 选择前面有 <p> 元素的每个 <ul> 元素。               | 3    |
+| [[*attribute*^=*value*\]](http://www.w3school.com.cn/cssref/selector_attr_begin.asp) | a[src^="https"]       | 选择其 src 属性值以 "https" 开头的每个 <a> 元素。   | 3    |
+| [[*attribute*$=*value*\]](http://www.w3school.com.cn/cssref/selector_attr_end.asp) | a[src$=".pdf"]        | 选择其 src 属性以 ".pdf" 结尾的所有 <a> 元素。      | 3    |
+| [[*attribute**=*value*\]](http://www.w3school.com.cn/cssref/selector_attr_contain.asp) | a[src*="abc"]         | 选择其 src 属性中包含 "abc" 子串的每个 <a> 元素。   | 3    |
+| [:first-of-type](http://www.w3school.com.cn/cssref/selector_first-of-type.asp) | p:first-of-type       | 选择属于其父元素的首个 <p> 元素的每个 <p> 元素。    | 3    |
+| [:last-of-type](http://www.w3school.com.cn/cssref/selector_last-of-type.asp) | p:last-of-type        | 选择属于其父元素的最后 <p> 元素的每个 <p> 元素。    | 3    |
+| [:only-of-type](http://www.w3school.com.cn/cssref/selector_only-of-type.asp) | p:only-of-type        | 选择属于其父元素唯一的 <p> 元素的每个 <p> 元素。    | 3    |
+| [:only-child](http://www.w3school.com.cn/cssref/selector_only-child.asp) | p:only-child          | 选择属于其父元素的唯一子元素的每个 <p> 元素。       | 3    |
+| [:nth-child(*n*)](http://www.w3school.com.cn/cssref/selector_nth-child.asp) | p:nth-child(2)        | 选择属于其父元素的第二个子元素的每个 <p> 元素。     | 3    |
+| [:nth-last-child(*n*)](http://www.w3school.com.cn/cssref/selector_nth-last-child.asp) | p:nth-last-child(2)   | 同上，从最后一个子元素开始计数。                    | 3    |
+| [:nth-of-type(*n*)](http://www.w3school.com.cn/cssref/selector_nth-of-type.asp) | p:nth-of-type(2)      | 选择属于其父元素第二个 <p> 元素的每个 <p> 元素。    | 3    |
+| [:nth-last-of-type(*n*)](http://www.w3school.com.cn/cssref/selector_nth-last-of-type.asp) | p:nth-last-of-type(2) | 同上，但是从最后一个子元素开始计数。                | 3    |
+| [:last-child](http://www.w3school.com.cn/cssref/selector_last-child.asp) | p:last-child          | 选择属于其父元素最后一个子元素每个 <p> 元素。       | 3    |
+| [:root](http://www.w3school.com.cn/cssref/selector_root.asp) | :root                 | 选择文档的根元素。                                  | 3    |
+| [:empty](http://www.w3school.com.cn/cssref/selector_empty.asp) | p:empty               | 选择没有子元素的每个 <p> 元素（包括文本节点）。     | 3    |
+| [:target](http://www.w3school.com.cn/cssref/selector_target.asp) | #news:target          | 选择当前活动的 #news 元素。                         | 3    |
+| [:enabled](http://www.w3school.com.cn/cssref/selector_enabled.asp) | input:enabled         | 选择每个启用的 <input> 元素。                       | 3    |
+| [:disabled](http://www.w3school.com.cn/cssref/selector_disabled.asp) | input:disabled        | 选择每个禁用的 <input> 元素                         | 3    |
+| [:checked](http://www.w3school.com.cn/cssref/selector_checked.asp) | input:checked         | 选择每个被选中的 <input> 元素。                     | 3    |
+| [:not(*selector*)](http://www.w3school.com.cn/cssref/selector_not.asp) | :not(p)               | 选择非 <p> 元素的每个元素。                         | 3    |
+| [::selection](http://www.w3school.com.cn/cssref/selector_selection.asp) | ::selection           | 选择被用户选取的元素部分。                          | 3    |
+
+**注意：**
+
+1. **CSS3中引入双冒号(`::`)是为了在伪类中，如:`:hover`,`:active`,区分伪元素，如`::before`，`::after`。**
+2. **[CSS伪类和伪元素总结](https://www.w3cplus.com/css/an-ultimate-guide-to-css-pseudo-classes-and-pseudo-elements.html)**
+
+---
+
+### **(2) 通配符，是对所有标签设置的样式**
 
 ```css
 *{
@@ -274,7 +298,7 @@ stretch（默认值）：轴线占满整个交叉轴。
 /*特别注意：通配符中设置内外边距为零时，会去掉所有块级元素自带的内外边距，会对表格、ul、ol、dl等标签布局造成破坏*/
 ```
 
-### **(2) 多类选择器，注意写法**
+### **(3) 多类选择器，注意写法**
 
 ```html
 <p class='p1'>hello</p>;
@@ -294,13 +318,13 @@ stretch（默认值）：轴线占满整个交叉轴。
 }
 ```
 
-### **(3) class 选择器与 id 选择器的区别**
+### **(4) class 选择器与 id 选择器的区别**
 
 - id只能在文档中使用一次，而class可以使用多次
 - id选择器不能借个使用
 - 当使用js时候，需要用到id，(`document.getElementById`)
 
-### **(4) 属性选择器**
+### **(5) 属性选择器**
 
 #### 用法
 
@@ -363,4 +387,137 @@ stretch（默认值）：轴线占满整个交叉轴。
 ```
 
 **两者区别：**后代选择器可以越级，而子元素选择器只能一层一层递进。
+
+
+
+---
+
+## 6. CSS float（浮动属性）
+
+**浮动属性的初衷：**
+
+浮动属性的设计初衷，只是为了**实现文本环绕效果！** 时刻牢记这一点，才能正确使用浮动。
+
+由于浮动元素脱离文档流，它后面的块级元素会忽略它的存在，占据它原本的位置，但是这个块级元素中的内联元素，在流入页面时会考虑浮动元素的边界，它们会围绕着浮动元素。
+
+**浮动元素的特征：**
+
+1. 浮动元素脱离文档流。
+2. 浮动元素周围的外边距不会合并。
+3. 浮动元素具有包裹性。
+4. 浮动元素具有破坏性。
+
+![浮动布局](./float.jpg)
+
+1. 浮动元素块状化。不管元素本身是什么（inline/inline-block/block），只要浮动，自带display:inline-block声明
+
+**小tips：**
+
+- 父元素overflow: auto; 可解决浮动元素高度塌陷问题。
+
+
+- 将元素浮动前，要设置body元素的margin和padding，以避免各浏览器的页面差异。
+
+**浮动的规则 [详情](http://www.cnblogs.com/cc156676/p/5682439.html)**
+
+---
+
+## 7.  什么是BFC，如何创建BFC？解决什么问题？
+
+### 一、常见定位方案
+
+在讲 BFC 之前，我们先来了解一下常见的定位方案，定位方案是控制元素的布局，有三种常见方案:
+
+- 普通流 (normal flow)
+
+> 在普通流中，元素按照其在 HTML 中的先后位置至上而下布局，在这个过程中，行内元素水平排列，直到当行被占满然后换行，块级元素则会被渲染为完整的一个新行，除非另外指定，否则所有元素默认都是普通流定位，也可以说，普通流中元素的位置由该元素在 HTML 文档中的位置决定。
+
+- 浮动 (float)
+
+> 在浮动布局中，元素首先按照普通流的位置出现，然后根据浮动的方向尽可能的向左边或右边偏移，其效果与印刷排版中的文本环绕相似。
+
+- 绝对定位 (absolute positioning)
+
+> 在绝对定位布局中，元素会整体脱离普通流，因此绝对定位元素不会对其兄弟元素造成影响，而元素具体的位置由绝对定位的坐标决定。
+
+### 二、什么是BFC？ [BFC详解1](https://www.w3cplus.com/css/understanding-block-formatting-contexts-in-css.html)   [BFC详解2](https://www.w3cplus.com/css/understanding-bfc-and-margin-collapse.html)
+
+首先，**Formatting context** (格式化上下文)  是 W3C CSS2.1 规范中的一个概念。它是页面中的一块渲染区域，并且有一套渲染规则，它决定了其子元素将如何定位，以及和其他元素的关系和相互作用。
+
+**BFC 即 Block Formatting Contexts (块级格式化上下文)**，它属于上述定位方案的普通流。
+
+**具有 BFC 特性的元素可以看作是隔离了的独立容器，容器里面的元素不会在布局上影响到外面的元素，同时BFC仍然属于文档中的普通流并且 BFC 具有普通容器所没有的一些特性。**
+
+>#### BFC的通俗理解：
+>
+>#### 首先BFC是一个名词，是一个独立的布局环境，我们可以理解为一个箱子（实际上是看不见摸不着的），箱子里面物品的摆放是不受外界的影响的。转换为BFC的理解则是：BFC中的元素的布局是不受外界的影响（我们往往利用这个特性来消除浮动元素对其非浮动的兄弟元素和其子元素带来的影响。）并且在一个BFC中，块盒与行盒（行盒由一行中所有的内联元素所组成）都会垂直的沿着其父元素的边框排列。
+
+### 三、如何创建BFC
+
+一个BFC可以被显式的触发，如果想要创建一个新的BFC，只需要给它添加下面提到的任何一个CSS样式就可以。
+
+- 浮动元素：`float`的值不为`none`
+
+
+- 绝对定位元素：**`position`的值不为`static`或者`relative`**
+
+
+- **`display`的值为`inline-flex` , `inline-block`, `flex`, 或者 `table-cell`, `table-caption`,中的其中一个**
+
+
+- **overflow 除了 visible 以外的值 (hidden、auto、scroll)**
+
+### 四、BFC 特性及应用
+
+1. **同一个 BFC 下外边距会发生折叠**
+2. **BFC 可以包含浮动的元素（清除浮动）**
+3. **BFC 可以阻止元素被浮动元素覆盖**
+
+---
+
+##  8. 为什么 overflow:hidden/auto 可以清除浮动以及几种清除浮动的方法？
+
+### overflow:hidden/auto 清除浮动原理
+
+正常理解：**
+
+`overflow:hidden` 的意思是超出的部分要裁切隐藏掉，那么如果 float 的元素不占普通流位置，普通流的包含块要根据内容高度裁切隐藏，如果高度是默认值auto那么不计算其内浮动元素高度就裁切就有可能会裁掉float。
+
+**其实不然，**
+
+**如果没有明确设定容器高情况下，它要计算内容全部高度才能确定在什么位置hidden，浮动的高度就要被计算进去，顺带达成了清理浮动的目标**
+同理，
+overflow 非默认值
+position 非默认值
+float 非默认值
+等都是遵循这个布局计算思路。
+
+>**最终的结果就是你看到的，overflow 取值只要不是 visible ，就会开启这个超级属性（BFC），此超级属性反过来决定了 height: auto 是如何计算的。从 BFC 的机制设计来看，把 float 元素纳入尺寸计算（即所谓父块包裹子块）是合理的。**
+
+### 几种清除浮动的方法
+
+浮动会漂浮于普通流之上，像浮云一样，但是只能左右浮动。正是这种特性，导致框内部由于不存在其他普通流元素了，表现出高度为0（高度塌陷）。
+
+1. **添加额外标签，例如`<div style="clear:both"></div>`**
+
+2. **使用br标签和其自身的html属性，例如`<br clear="all" />`**
+
+3. **父元素设置 `overflow：hidden` 或设置 `over：auto`；**
+
+4. **父元素也设置浮动**
+
+5. **父元素设置`display:table `**   原理：将div属性变成表格（不建议使用）
+
+6. **使用`:after`,`:before`或`::after` ,`::before`伪元素**
+
+   ```css
+   /*伪元素清除浮动示例*/
+   p::after{
+               content:""; /*必须有*/
+               clear: both;
+               display: block;
+   }
+   ```
+
+   ​
 
