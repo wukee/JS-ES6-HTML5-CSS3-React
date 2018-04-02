@@ -407,7 +407,7 @@ stretch（默认值）：轴线占满整个交叉轴。
 3. 浮动元素具有包裹性。
 4. 浮动元素具有破坏性。
 
-![浮动布局](./float.jpg)
+![浮动布局](float.jpg)
 
 1. 浮动元素块状化。不管元素本身是什么（inline/inline-block/block），只要浮动，自带display:inline-block声明
 
