@@ -229,6 +229,18 @@ stretch（默认值）：轴线占满整个交叉轴。
 
 ## 5. CSS3选择器注意点
 
+### 简述CSS的选择器
+
+**元素选择器**：* 、E、 E#id、 E.class
+
+**关系选择器**：E、F、E>F、E+F、E~F
+
+**属性选择器**：E[att]、E[att="val"]、E[att~="val"]、E[att^="val"]、E[att$="val"]、E[att*="val"]、E[att|="val"]
+
+**伪类选择器**：E:link、E:visited、E:hover、E:active、E:focus、E:lang(fr)、E:not(s)、E:root、E:empty、E:target、E:first-child、E:last-chil等
+
+**伪元素选择器**：E:first-letter/E::first-letter、E:first-line/E::first-line、E:before/E::before、E:after/E::after、E::selection
+
 ### (1) css选择器一览表
 
 "CSS" 列指示该属性是在哪个 CSS 版本中定义的。（CSS1、CSS2 还是 CSS3。）
@@ -283,7 +295,7 @@ stretch（默认值）：轴线占满整个交叉轴。
 **注意：**
 
 1. **CSS3中引入双冒号(`::`)是为了在伪类中，如:`:hover`,`:active`,区分伪元素，如`::before`，`::after`。**
-2. **[CSS伪类和伪元素总结](https://www.w3cplus.com/css/an-ultimate-guide-to-css-pseudo-classes-and-pseudo-elements.html)**
+2. **[CSS伪类和伪元素区别](https://www.w3cplus.com/css/an-ultimate-guide-to-css-pseudo-classes-and-pseudo-elements.html)**
 
 ---
 
@@ -387,9 +399,148 @@ stretch（默认值）：轴线占满整个交叉轴。
 
 **两者区别：**后代选择器可以越级，而子元素选择器只能一层一层递进。
 
+### (6) 结构性伪类选择器
 
+在CSS3中，结构性伪类选择器的共同特征是允许开发者根据文档中的结构来指定元素的样式。**常见的有 root、not、empty和target**
+
+1. root 将样式绑定在页面的根元素当中，根元素位于最顶层，在页面中是html元素
+
+   ```css
+   :root{
+       /*给整个页面添加一个背景颜色*/
+       background-color:darkgrey;
+   }
+   body{
+       background-color:darkgreen;
+   }
+   /*细节：如果有root 在用body时，body的背景颜色只给内容区域添加，如果没有root 则是给整个页面添加*/
+   ```
+
+2. not 除过子元素中的某个元素而给其他元素添加的样式
+
+   ```html
+   <div id='div1'>
+       <h1>伪类选择器</h1>
+       <h2>伪类选择器</h2>
+       <p>伪类选择器</p>
+   </div>
+   ```
+
+   ```css
+   #div1 :not(h2){  /*id为div1下除过h2元素其他元素添加的样式，注意中间空格不能少*/
+               color: seagreen;
+               font-style: italic;
+           }
+   ```
+
+3. empty 当前元素中内容为空白时的样式，多用于表格中的空白内容
+
+   ```css
+   table :empty{
+       background-color:darkgreen
+   }
+   ```
+
+4. target ，在页面中点击超链接跳转到目标（target）元素的样式
+
+   ```html
+   <a href="#a1">菜单1</a>
+   <div id="a1">
+       <h2>菜单1</h2>
+       <p>菜单1内容</p>
+   </div>
+   ```
+
+   ```css
+   :target{ /*点击<a>标签链接跳转到div内容时的样式*/
+               background-color: #b8912d;
+           }
+   ```
 
 ---
+
+### (7) `:nth-of-type`与`:nth-child` ；`:only-of-type`与 `:only-child`的区别
+
+1. `:nth-of-type(n)` 是选择父元素下的指定子类型（type）的第n个元素。**关键字 type， 按照类型来计算**
+
+2. `:nth-child(n)` 是选择父元素下所有子元素（child）的第n个。**关键字 child， 按照个数来计算**
+
+   ```html
+   <div id="type">
+       <h1>标题</h1>
+       <p>段落1</p>
+       <p>段落2</p>
+       <p>段落3</p>
+       <span>span1</span>
+       <span>span2</span>
+       <span>span3</span>
+       <p>段落4</p>
+       <i>斜体</i>
+   </div>
+   ```
+
+   ```css
+   /*第一种情况：有指定元素时，*/
+   #type p:nth-of-type(3){ /*选择的是父元素（#type）下第三个 p 元素的样式*/
+               background-color: #84c775;
+           }；/*只选中 段落3*/
+
+   /*第二种情况：没有指定元素时，选择的是父元素（#type）下所有 有至少3个相同元素的第三个元素*/
+   #type :nth-of-type(3){ 
+       /*在这选择的是第三个 p 元素和第三个 span 元素的样式*/
+               background-color: #84c775;
+           }；/*选中 段落3 和 span3*/
+   ```
+
+   ```css
+   #type :nth-child(2){ /*所有子元素中的第二个*/
+               background-color: #84c775;
+           }； /*选中 段落1*/
+
+   #type span:nth-child(5){ 
+               background-color: #84c775;
+           }； /*选中 span1*/
+   /*注意 :nth-child 是从第一个子元素计算，此时指定 span 元素时n必须从5计算，否则不会有效果，所有指定元素作用不大。这种情况多用于无序列表中*/
+   ```
+
+3. `:only-of-type` 针对多个子元素当中没有重复的元素。
+
+   ```css
+   #type :only-of-type{ /*没有指定某个元素时，选中 #type中 所有没有重复的标签*/
+       background-color: #84c775;
+   }；/*选中 <h1> 和 <i> 标签*/
+
+   #type i:only-of-type{ /*有指定某个元素时，则选中该元素*/
+       background-color: #84c775;
+   }；/*选中 <i> 标签*/
+   ```
+
+4. `:only-child` 针对父级元素中只有一个子元素的情况。
+
+5. > ![UI元素状态选择器](./xuanzeqi.png)
+
+### (8) 通用兄弟元素选择器：
+
+**用来指定位于同一个父级元素中的某个元素之后的所有其他种类的兄弟元素所使用的样式。**
+
+```html
+<div id="brotherDiv">
+    <div>
+        <p>段落1</p>
+        <p>段落2</p>
+    </div>
+    <p>段落3</p>  <!--此处的p与上面的div 是兄弟元素-->
+    <p>段落4</p>
+</div>
+```
+
+```css
+#brotherDiv div~p{ /*父级元素下与 div 相邻的所有兄弟元素 p 的样式 */
+            background-color: #d37fa3;
+        }; /*选中 "段落3" 和 "段落4" */
+```
+
+
 
 ## 6. CSS float（浮动属性）
 
@@ -516,6 +667,7 @@ float 非默认值
                clear: both;
                display: block;
    }
+   /*注意：:after,:before是在当前元素的content（内容）前后加的样式，不是在某个元素的前后加样式*/
    ```
 
    ​
