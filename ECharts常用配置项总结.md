@@ -111,9 +111,62 @@ yAxis:[{
 }],
 ```
 
-## 6. series: {...}
+## 6. series: {...} 
 
+系列列表。每个系列通过 `type` 决定自己的图表类型  [详细](http://echarts.baidu.com/option.html#series)
 
+```javascript
+series: [{
+    name: '本科生',  //系列名称，用于tooltip的显示，legend 的图例筛选
+    type: 'bar',    //选择使用柱状图
+    xAxisIndex:0,   //有多个grid时，选择使用第一个x轴。（其实就是把该系列放到哪个坐标系）
+    yAxisIndex:0,   //有多个grid时，选择使用第一个y轴。
+    data: [5, 20, 36] //系列中的数据内容数组。数组项通常为具体的数据项，一般通过json数据引入
+},
+{
+    name: '硕士生',
+    type: 'line',  //选择使用折线图
+    xAxisIndex:1,  //选择使用第二个x轴
+    yAxisIndex:1,
+    data: [6, 25, 30]
+}]
+......
+```
 
 ## 7. dataZoom: {...}
+
+`dataZoom` 组件 用于区域缩放，从而能自由关注细节的数据信息，或者概览数据整体，或者去除离群点的影响。
+
+ [详细](http://echarts.baidu.com/option.html#dataZoom)
+
+```javascript
+dataZoom:[
+    {
+        type:'slider',      //有单独的滑动条，用户在滑动条上进行缩放或漫游。
+        xAxisIndex:[0],     //给第一个X轴下加一个slider,不写则默认
+        start:0,            //数据窗口范围的起始百分比。范围是：0 ~ 100。表示 0% ~ 100%。
+        end:50,             //数据窗口范围的结束百分比。范围是：0 ~ 100。
+        bottom:1,           //dataZoom-slider组件离容器下侧的距离。
+        textStyle:{fontSize:15,fontWeight:'bold'},//数据窗口两边字体样式
+        handleSize:8        //控制手柄的尺寸，
+    },
+    {
+        type:'inside',   //内置于坐标系中，使用户可以在坐标系上通过鼠标拖拽、鼠标滚轮、手指滑动（触屏                          上）来缩放或漫游坐标系。
+        xAxisIndex:[0], //给第一个x轴内置
+        start:94,
+        end:100,
+    },
+    {
+        type:'slider', 
+        yAxisIndex:[0],         //给y轴旁添加一个slider
+        filterMode:'filter',    //dataZoom 的运行原理是通过 数据过滤 来达到 数据窗口缩放 的效果。数据                                   过滤模式的设置不同，效果也不同,有:filter, weakFilter, empty, none
+        width:28,               //滑动条宽度
+        height:'80%',           //滑动条高度
+        start:1,        
+        end:60,
+        textStyle:{fontSize:15},  
+        handleSize:8,
+        right:'6%',             //距离容器右侧距离
+    }],
+```
 
