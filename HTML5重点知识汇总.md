@@ -417,7 +417,7 @@ HTML5使用Canvas绘制矩形的代码
    #div{  /*CSS中加载图片的方式*/
     background-image:url("img/bg.png");
    }
-
    ```
 
-   ​
+
+## 13. websocket的工作原理和机制 [详情](https://segmentfault.com/a/1190000014149542?utm_source=tag-newest)
