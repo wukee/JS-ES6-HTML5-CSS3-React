@@ -671,7 +671,6 @@ float 非默认值
    ```
 
 
-
 ---
 
 ## 9. css3动画，transition和animation的区别，animation的属性，加速度，重力的模拟实现
@@ -791,3 +790,52 @@ li:hover{
 
 - `animation`的触发就是我们所设置的，根据她所规定的值指定我们想要的规则，可以在一开始就执行，可以执行一次再也不变。
 - **`transition` 引起的 `hover` 等 变化效果 ，鼠标移除前变化不会消失（会停留），`animation` 定义的动画执行完会消失，即使鼠标一直在元素上`hover`**
+
+## 10. CSS3 多边形、CSS 百分比参照问题 及 transform-origin、transform属性注意点
+
+###     (1) CSS3 各种多边形画法 [详细](http://www.jb51.net/css/41448.html)
+
+**注意：等边三角形画法；**
+
+```css
+.div1{
+    width: 0;
+    height: 0;
+    border-left: 57.7px solid transparent;  /*三角形边是115.4px，具体要计算*/
+    border-right: 57.7px solid transparent;
+    border-top: 100px solid black            /*三角形高是100px*/
+}
+```
+
+### (2)transform-origin属性  [详细](https://blog.csdn.net/xu_ya_fei/article/details/51711968)
+
+### (3) transform属性覆盖
+
+```css
+.div2{
+    position: relative;
+    left: 50%;
+    margin: -100px auto;             /*此处margin 是相对父级容器的宽度*/
+    border-left: 57.7px solid transparent;  
+    border-right: 57.7px solid transparent;
+    border-top: 100px solid yellow;
+    transform-origin: 50% 100%;
+     /*transform: translate(-50%,0)*/;
+    /*transform:  rotate(60deg) ;  如果分开写，则此处的transform会覆盖上面的transform属性值，只会参                                    考left的值来旋转，*/
+    transform: translate(-50%,0) rotate(60deg)；/* 这样写则有效，会参考left和translate两个值先平移，再旋转； 若写成先写rotate(60deg)后写 translate(-50%,0)，则会先根据left位置旋转再根据translate平移造成位置异常；*/
+}
+```
+
+### (4) CSS 百分比参照问题
+
+- 参照父元素**宽度**的元素：padding **margin** width text-indent
+
+
+- 参照父元素高度的元素：height
+
+
+- 参照父元素属性:font-size   line-height
+
+
+- 特殊：相对定位的时候，top(bottom)   left(right)参照的是父元素的内容区域的高度与宽度，而绝对定位的时候参照的是最近的定位元素包含padding的高度与宽度
+

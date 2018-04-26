@@ -1070,5 +1070,51 @@ let obj={
 }
 ```
 
+---
+
+## 7. 模块化编程，import和export用法
+
+### import
+
+```javascript
+import {moduleName} from './my-module.js';
+//导入模块中的单个成员moduleName
+
+import {moduleName1,moduleName2} from './my-module';
+//导入模块中的多个成员moduleName1、moduleName2
+　　
+import {moduleName1 as moduleAlias,moduleName2} from './my-module';
+//通过as可更改模块在导出外的名称，moduleName1是本地名称，moduleAlias是导入时重新定义的名称。
+
+import nameDefault from './my-module.js' ; 
+//导入默认值，nameDefault是my-module.js文件的默认导出项：export default nameDefault
+
+import nameDefault,{moduleName1,moduleName2} from './my-module';
+//默认值和多个成员一起导出。
+
+import * as Name form './my-module.js';
+console.log(Name.sum())//sum()是my-module.js一个函数。
+//导入全部，导入整个模块作为单一的对象，所有的导出都可以作为该对象的属性使用。这种导入格式被称为命名空间导入，因为 my-module.js 中不存在Name对象，故而它作为my-module.js中所有导出成员的命名空间对象为被创建。
+
+import name from './my-module.js' ; 
+//导入整个模块到当前作用域，name作为接收该模块的对象名称 
+
+import './my-module.css'
+//无绑定导入，只加载一个模块，没有导入任何东西，相当于<link>标签，一般用于导入CSS文件。
+```
+
+### export
+
+```javascript
+export {function};
+//导出一个函数
+
+export const foo = 2;
+//导出一个常量
+
+export default myClass;
+//默认导出，每个模块只有一个默认导出，导出的可以是一个类，一个函数，一个对象
+```
+
 
 
