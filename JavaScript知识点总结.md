@@ -316,13 +316,17 @@ JS中每个函数都可以看成一个对象，而 **`prototype` （显式原型
 实践是检验真理的唯一标准，如下编程：
 
 ```javascript
-function Fn() { }                          //声明一个构造函数 注意函数名大写
-Fn.prototype.name = 'hello';               //通过原型往Fn里添加 name 属性
-Fn.prototype.getYear = function () {       //通过原型往Fn里添加 getYear 方法
+function Person() {  //声明一个构造函数 注意函数名大写
+    //有了prototype就不必在构造函数中定义对象实例的信息（prototype把实例信息转移到了构造函数的外部）。  而构造函数就变成了空函数。当然也仍然可以通过构造函数定义实例信息。
+    this.age=25; //注意：构造函数创建的实例对象的属性要比prototype创建的属性等级高。实例对象首先会在构造函数中找该属性，如果没有找到才会在prototype中找。
+}                          
+Person.prototype.name = 'hello';       //将name属性直接添加到Person 的 prototype 属性中
+Person.prototype.age = 27;           //将age属性再添加prototype 中，注意：不会覆盖构造函数中的age
+Person.prototype.getYear = function () {     //将getYear方法直接添加到Person 的 prototype属性中
     return 2018;
 };
-/* 可以写成对象，因为 prototype的属性值就是一个对象（属性的集合）
-Fn.prototype={
+/* 可以写成对象字面量的形式，因为 prototype的属性值就是一个对象（属性的集合）
+Person.prototype={
      name:'hello',
      getYear:function () {
          return 2018;
@@ -330,17 +334,18 @@ Fn.prototype={
  }
  */
 
-var obj1 = new Fn();                        //用new的方式 生产一个实例对象 obj1
-var obj2 = new Fn();                        //用相同构造函数生产处另一个实例对象 obj2         
+var obj1 = new Person();                        //用new的方式 生产一个实例对象 obj1
+var obj2 = new Person();                        //用相同构造函数生产处另一个实例对象 obj2         
 console.log(obj1.name);   // hello,  实例对象能够访问原型对象（prototype）中的属性
+console.log(obj1.age);    //25, 先在构造函数中找age属性，找到后则不会再在原型对象（prototype）中找
 console.log(obj1.getYear); //2018,   实例对象能够访问原型对象（prototype）中的方法
-console.log(obj1.constructor); // [Function: Fn], constructor 属性，指向Fn本身。
+console.log(obj1.constructor); // [Function: Person], constructor 属性，指向Fn本身。
 
 obj2.__proto__.age = 27;  //相当于Fn.prototype.age=27
 console.log(obj1.age); //27
 /用obj2的__proto__添加了一个age属性，结果obj1也能访问到，这是什么？/
-//因为只有构造函数此才有prototype 属性，而实例对象并没有 prototype 属性，但实例对象有自己__proto__属性，实例对象通过__proto__属性来访问 构造函数的 prototype 属性，即：obj.__proto__ === Fn.prototype。所以obj2.__proto__.age===Fn.prototype.age,即往他两共同的构造函数Fn里添加了一个age属性，所以obj1可以放到。
-console.log(obj1.__proto__===Fn.prototype); //true
+//因为只有构造函数才有prototype 属性，而实例对象并没有 prototype 属性，但实例对象有自己__proto__属性，实例对象通过__proto__属性来访问 构造函数的 prototype 属性，即：obj.__proto__ === Person.prototype。所以obj2.__proto__.age===Fn.prototype.age,即往他两共同的构造函数Fn里添加了一个age属性，所以obj1可以放到。
+console.log(obj1.__proto__===Person.prototype); //true
 
 ```
 
@@ -363,10 +368,10 @@ var obj4 = function(){}; // Function函数字面量
 
 ### (2) new 构造函数
 
-通过**内置对象的构造函数**，或者**自定义的函数**。 使用 `new` 操作符，创建一个对象，并且执行构造函数方法。
+通过**原生构造函数**，或者**自定义的构造函数**。 使用 `new` 操作符，创建一个对象，并且执行构造函数方法。
 
 ```javascript
-//四种内置对象的构造函数
+//四种原生的构造函数
 var obj = new Object();
 var obj2 = new Array(1000);
 var obj3 = new RegExp('^[a-zA-Z0-9]$');
@@ -386,8 +391,8 @@ var obj1 = new Fn();
 >通过关键字new + **函数调用**，就可以创建一个新的对象。被调用的函数被称为构造函数。 根据`高程`中描述，使用 new + **调用函数** 创建一个对象，这种方式会经历以下 4 个步骤:
 >
 >(1) 创建一个新对象;
->(2) 将构造函数的作用域赋给新对象(因此 this 就指向了这个新对象);
->(3) 执行构造函数中的代码(为这个新对象添加属性);
+>(2) 将构造函数的作用域赋给新对象（因此 this 就指向了这个新对象）;
+>(3) 执行构造函数中的代码（为这个新对象添加属性）;
 >(4) 返回新对象。
 
 
@@ -466,5 +471,128 @@ function changeColor(){     //局部环境
 
 ## 10、实现继承的多种方式和优缺点
 
+### 原型继承
 
+实现方法：是让子原型对象等于父类型的实例，本质是重写原型对象
 
+**缺点: 子类实例共享属性，造成实例间的属性会相互影响，实际中很少用** 
+
+```javascript
+function Parent() {
+    this.colors=['red','blue','green'];
+}
+function Child() {
+}
+Child.prototype=new Parent();        //让原型对象等于另一个类型的实例
+var obj=new Child();
+obj.colors.push('black');
+console.log(obj.colors);   //[ 'red', 'blue', 'green', 'black' ]
+
+var obj2=new Child();     //所有实例都会共享这一个colors属性，造成实例间的属性会相互影响
+console.log(obj2.colors);  //[ 'red', 'blue', 'green', 'black' ]
+```
+
+### 构造函数继承
+
+实现方法：在子类型构造函数的内部调用超类型构造函数。
+
+缺点: **方法**都在构造函数中定义，因此函数复用就无从谈起，即：父类的**方法**没有被共享，造成内存浪费
+
+```javascript
+function Parent() {
+    this.name=['wuke'];
+    this.fn=function () {
+        this.name.push('hello')
+    }
+}
+function Child() {
+    //继承了Person，同时还可以传递参数
+    Parent.call(this);
+    
+    //实例属性
+    this.age=25;
+}
+var obj1=new Child();
+var obj2=new Child();
+ obj1.fn();
+console.log(obj1.name,obj2.name); //[ 'wuke', 'hello' ],[ 'wuke' ] 子类实例不会相互影响
+console.log(obj1.age);  //25
+console.log(obj1.fn===obj2.fn); //false, 实例方法也是独立的，没有共享同一个方法
+```
+
+### 组合继承
+
+实现方式：将原型链和构造函数继承结合到一块，思路是使用原型链实现对原型属性和方法的继承，而通过构造函数来继承来实现对实例属性的继承。
+
+缺点: **父类构造函数被调用两次，一次是在创建子类型原型的时候，另一次是在子类型构造函数内部。**子类实例的属性存在两份，造成内存浪费。
+
+```javascript
+function Parent() {
+    this.name=['wuke'];
+}
+Person.prototype.fn=function () {
+    this.name.push('hello')
+}
+function Child() {
+    Parent.call(this);   //第二次调用Person()
+    this.age=25;
+}
+Child.prototype=new Parent();// 第一次调用Person()继承父类的属性和方法(副作用: 父类的构造函数被调用的                                  多次，且属性也存在两份造成了内存浪费)
+var obj1=new Child();
+var obj2=new Child();
+obj1.fn();
+console.log(obj1.name,obj2.name); //[ 'wuke', 'hello' ],[ 'wuke' ] 子类实例不会相互影响
+console.log(obj1.age);//25
+console.log(obj1.fn===obj2.fn);  //true, 共享了父类的方法
+```
+
+### 寄生继承
+
+完美：子类都有各自的实例不会相互影响，且共享了父类的方法
+
+```javascript
+function Parent() {
+  this.name = ['wuke']
+}
+Parent.prototype.fn = function() {
+  this.name.push('hello')
+}
+function Child() {
+  Parent.call(this) // 生成子类的实例属性(但是不包括父对象的方法)
+}
+Child.prototype = Object.create(Parent4.prototype) // 该方法会使用指定的原型对象及其属性去创建一个新的对象
+var obj1 = new Child()
+var obj2 = new Child()
+obj1.fn();
+console.log(obj1.name, obj2.name) //[ 'wuke', 'hello' ],[ 'wuke' ] 子类实例不会相互影响
+console.log(obj1.fn===obj2.fn);  //true, 共享了父类的方法
+```
+
+### ES6 class
+
+和寄生继承实现的效果一致
+
+```javascript
+class Parent {
+  constructor() {
+    this.name = ['wuke']
+  }
+  reName() {
+    this.name.push('hello')
+  }
+}
+
+class Child extends Parent {
+  constructor() {
+    super()  
+  }
+}
+
+var obj1 = new Child()
+var obj2 = new Child()
+obj1.fn();
+console.log(obj1.name, obj2.name) //[ 'wuke', 'hello' ],[ 'wuke' ] 子类实例不会相互影响
+console.log(obj1.fn===obj2.fn);  //true, 共享了父类的方法
+```
+
+**注意 `super()`用法：**
