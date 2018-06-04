@@ -779,3 +779,85 @@ Number对象：数值对象。一个数值变量就是一个数值对象。
 Math对象：数学对象，提供了数学运算方面的属性和方法。
 
 RegExp:正则。
+
+---
+
+## 15、 jS中常用坐标属性offset、scroll、client
+
+![img](https://images0.cnblogs.com/blog/555524/201501/251833059254129.png)
+
+**js中常见的位置距离：**
+
+| offset       | client       | scroll       | event         |
+| ------------ | ------------ | ------------ | ------------- |
+| offsetWidth  | clientWidth  | scrollWidth  | event.clientX |
+| offsetHeight | clientHeight | scrollHeight | event.clientY |
+| offsetLeft   | clientLeft   | scrollLeft   | event.offsetX |
+| offsetTop    | clientTop    | scrollTop    | event.offsetY |
+
+**1、在文档（document.documentElement.scrollLeft）对象里面用**：
+
+**scrollWidth/Height**： 获取整个页面的宽度/高度（包括滚动的距离）
+
+**scrollLeft/Top**：只获取水平/垂直**滚动距离**， 与鼠标焦点无关。
+
+**2、 在节点对象里面用：**
+
+**offsetLeft/Top :** 当前对象到其**父级容器左边/上边的距离**。（css里面没有进行定位时，则offsetParent取值为根元素进行计算；当有css定位时，当前对象相对与offsetParent元素的距离）
+
+**offsetWidth/Height (width+padding+border)** 获取当前对象的宽度/高度。
+
+**clientWidth/Height:** 获取**浏览器可视区的宽度/高度**，不包括滚动条，不包括边框，随浏览器窗口大小改变；
+
+**clientLeft/Top:** 元素的内边距的外边缘和边框的外边缘的距离，实际就是边框的**左边框宽度/上边框宽度**
+
+**3、事件里面用的**：
+
+![img](http://img.blog.csdn.net/20150502094344891?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbHpkaW5n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
+
+- event.clientX  鼠标指针相对于浏览器窗口的水平坐标
+
+
+- event.clientY  鼠标指针相对于浏览器窗口的垂直座标
+
+
+- event.offsetX  鼠标指针相对于所点中容器的水平坐标
+
+
+- event.offsetY  鼠标指针相对于所点中容器的垂直坐标
+
+- event.pageX  鼠标指针相对于页面**左上角**的水平坐标**（包括scrollLeft距离）**，随页面水平滚动而发生变化  **pageX = clientX + scrollLeft** （水平滚动距离）
+
+- event.pageY  鼠标指针相对于页面**左上角**的垂直坐标**（包括scrollTop距离）**，随页面垂直滚动而发生变化  **pageY = clientY + scrollTop** （垂直滚动距离）
+
+  **注意：事件的pageX 和pageY如果有父容器，则父容器不能用position定位** 。原因：父容器用position定位后，pageX和pageY计算时会再加上position的位置距离。
+
+**4、屏幕的：**
+
+- window.screenTop 网页正文部分上
+
+
+- window.screenLfet 网页正文部分左
+
+
+- window.screen.height  屏幕分辨律的高
+
+
+- window.screen.left  屏幕分辨律的宽
+
+
+- window.screen.availHeight  屏幕可用工作区的高度
+- window.screen.availWidth  屏幕可用工作区的宽度
+- document.documentElement.scrollTop 垂直方向滚动的值
+
+> 网页可见区域宽： document.body.clientWidth;
+>
+> 网页可见区域高： document.body.clientHeight;
+>
+> 网页可见区域宽： document.body.offsetWidth   (包括边线的宽);
+>
+> 网页可见区域高： document.body.offsetHeight  (包括边线的宽);网页正文全文宽： document.body.scrollWidth;网页正文全文高： document.body.scrollHeight;网页被卷去的高： document.body.scrollTop;网页被卷去的左： document.body.scrollLeft;网页正文部分上： window.screenTop;网页正文部分左： window.screenLeft;屏幕分辨率的高： window.screen.height;屏幕分辨率的宽： window.screen.width;屏幕可用工作区高度： window.screen.availHeight;
+>
+> 屏幕可用工作区宽度：window.screen.availWidth;
+
+------
