@@ -30,6 +30,10 @@ ECMAScript变量包含两种不同类型的值：基本类型值、引用类型�
 1. 基本类型变量的复制：从一个变量向另一个复制时，会在栈中创建一个新值，然后把值复制到为新变量分配的位置上。
 2. 引用类型变量的复制：复制的是存储在栈中的指针，将指针复制到栈中为新变量分配的空间中，而这个指针副本和原指针指向存储在堆中的同一个对象，复制操作结束后，两个变量实际上将引用同一个对象，因此改变其中一个，将影响另一个。
 
+### instanceof 和 typeof 的实现原理
+
+**[详情](https://juejin.im/post/5b0b9b9051882515773ae714)**
+
 ### null和undefined的区别  [详情](http://www.ruanyifeng.com/blog/2014/03/undefined-vs-null.html)
 
 - `null` 表示“没有对象”，即该处不应该有值。常用来表示函数企图返回一个不存在的对象。典型的用法是：
@@ -861,3 +865,64 @@ RegExp:正则。
 > 屏幕可用工作区宽度：window.screen.availWidth;
 
 ------
+
+## 16、常用的数组API，字符串API
+
+### 常用`Array`的一些方法
+
+| 方法                                                         | 描述                                                         |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [concat()](http://www.runoob.com/jsref/jsref-concat-array.html) | 连接两个或更多的数组，并返回结果。                           |
+| [copyWithin()](http://www.runoob.com/jsref/jsref-copywithin.html) | 从数组的指定位置拷贝元素到数组的另一个指定位置中。           |
+| [every()](http://www.runoob.com/jsref/jsref-every.html)      | 检测数值元素的每个元素是否都符合条件。                       |
+| [fill()](http://www.runoob.com/jsref/jsref-fill.html)        | 使用一个固定值来填充数组。                                   |
+| [filter()](http://www.runoob.com/jsref/jsref-filter.html)    | 检测数值元素，并返回符合条件所有元素的数组。                 |
+| [find()](http://www.runoob.com/jsref/jsref-find.html)        | 返回符合传入测试（函数）条件的数组元素。                     |
+| [findIndex()](http://www.runoob.com/jsref/jsref-findindex.html) | 返回符合传入测试（函数）条件的数组元素索引。                 |
+| [forEach()](http://www.runoob.com/jsref/jsref-foreach.html)  | 数组每个元素都执行一次回调函数。                             |
+| [indexOf()](http://www.runoob.com/jsref/jsref-indexof-array.html) | 返回某个指定的数组元素在数组中首次出现的位置。               |
+| [join()](http://www.runoob.com/jsref/jsref-join.html)        | 把数组的所有元素放入一个字符串。                             |
+| [lastIndexOf()](http://www.runoob.com/jsref/jsref-lastindexof-array.html) | 返回一个指定的字符串值最后出现的位置，在一个字符串中的指定位置从后向前搜索。 |
+| [map()](http://www.runoob.com/jsref/jsref-map.html)          | 通过指定函数处理数组的每个元素，并返回处理后的数组。         |
+| [pop()](http://www.runoob.com/jsref/jsref-pop.html)          | 删除数组的最后一个元素并返回删除的元素。                     |
+| [push()](http://www.runoob.com/jsref/jsref-push.html)        | 向数组的末尾添加一个或更多元素，并返回新的长度。             |
+| [reduce()](http://www.runoob.com/jsref/jsref-reduce.html)    | 将数组元素计算为一个值（从左到右）。                         |
+| [reduceRight()](http://www.runoob.com/jsref/jsref-reduceright.html) | 将数组元素计算为一个值（从右到左）。                         |
+| [reverse()](http://www.runoob.com/jsref/jsref-reverse.html)  | 反转数组的元素顺序。                                         |
+| [shift()](http://www.runoob.com/jsref/jsref-shift.html)      | 删除并返回数组的第一个元素。                                 |
+| [slice()](http://www.runoob.com/jsref/jsref-slice-array.html) | 选取数组的的一部分，并返回一个新数组。                       |
+| [some()](http://www.runoob.com/jsref/jsref-some.html)        | 检测数组元素中是否有元素符合指定条件。                       |
+| [sort()](http://www.runoob.com/jsref/jsref-sort.html)        | 对数组的元素进行排序。                                       |
+| [splice()](http://www.runoob.com/jsref/jsref-splice.html)    | 从数组中添加或删除元素。                                     |
+| [toString()](http://www.runoob.com/jsref/jsref-tostring-array.html) | 把数组转换为字符串，并返回结果。                             |
+| [unshift()](http://www.runoob.com/jsref/jsref-unshift.html)  | 向数组的开头添加一个或更多元素，并返回新的长度。             |
+| [valueOf()](http://www.runoob.com/jsref/jsref-valueof-array.html) | 返回数组对象的原始值。                                       |
+
+### 常用`String` 的一些方法
+
+| 方法                                                         | 描述                                                         |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [charAt()](http://www.runoob.com/jsref/jsref-charat.html)    | 返回在指定位置的字符。                                       |
+| [charCodeAt()](http://www.runoob.com/jsref/jsref-charcodeat.html) | 返回在指定的位置的字符的 Unicode 编码。                      |
+| [concat()](http://www.runoob.com/jsref/jsref-concat-string.html) | 连接两个或更多字符串，并返回新的字符串。                     |
+| [fromCharCode()](http://www.runoob.com/jsref/jsref-fromcharcode.html) | 将 Unicode 编码转为字符。                                    |
+| [indexOf()](http://www.runoob.com/jsref/jsref-indexof.html)  | 返回某个指定的字符串值在字符串中首次出现的位置。             |
+| [lastIndexOf()](http://www.runoob.com/jsref/jsref-lastindexof.html) | 从后向前搜索字符串，并从起始位置（0）开始计算返回字符串最后出现的位置。 |
+| [match()](http://www.runoob.com/jsref/jsref-match.html)      | 查找找到一个或多个正则表达式的匹配。                         |
+| [replace()](http://www.runoob.com/jsref/jsref-replace.html)  | 在字符串中查找匹配的子串， 并替换与正则表达式匹配的子串。    |
+| [search()](http://www.runoob.com/jsref/jsref-search.html)    | 查找与正则表达式相匹配的值。                                 |
+| [slice()](http://www.runoob.com/jsref/jsref-slice-string.html) | 提取字符串的片断，并在新的字符串中返回被提取的部分。         |
+| [split()](http://www.runoob.com/jsref/jsref-split.html)      | 把字符串分割为字符串数组。                                   |
+| [substr()](http://www.runoob.com/jsref/jsref-substr.html)    | 从起始索引号提取字符串中指定数目的字符。                     |
+| [substring()](http://www.runoob.com/jsref/jsref-substring.html) | 提取字符串中两个指定的索引号之间的字符。                     |
+| [toLowerCase()](http://www.runoob.com/jsref/jsref-tolowercase.html) | 把字符串转换为小写。                                         |
+| [toUpperCase()](http://www.runoob.com/jsref/jsref-touppercase.html) | 把字符串转换为大写。                                         |
+| trim()                                                       | 去除字符串两边的空白                                         |
+| [valueOf()](http://www.runoob.com/jsref/jsref-valueof-string.html) | 返回某个字符串对象的原始值。                                 |
+
+## 17、什么是函数柯里化？以及说一下JS的API有哪些应用到了函数柯里化的实现？
+
+>**(说下对函数柯里化一些了解，以及在函数式编程的应用，最后说了一下JS中bind函数和数组的reduce方法用到了函数柯里化。)**
+
+**一句话：js柯里化是逐步传参，逐步缩小函数的适用范围，逐步求解的过程**。 **[详情](https://www.haorooms.com/post/js_currying)**
+
