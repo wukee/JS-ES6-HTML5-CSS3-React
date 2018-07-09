@@ -926,3 +926,7 @@ RegExp:正则。
 
 **一句话：js柯里化是逐步传参，逐步缩小函数的适用范围，逐步求解的过程**。 **[详情](https://www.haorooms.com/post/js_currying)**
 
+## 18、JS按位操作
+
+![按位操作](https://uploadfiles.nowcoder.net/images/20170713/7852649_1499938839314_ED9CA7D967A21103F57659E48CE27B40)
+
