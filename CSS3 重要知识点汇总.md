@@ -224,7 +224,6 @@ stretch（默认值）：轴线占满整个交叉轴。
 
    **@import是css的一个属性，代表着引入css文件到当下css文件中，且只能引入css文件。@import只能位于文件的顶部，这降低了灵活性。**
 
-
 ---
 
 ## 5、CSS3选择器注意点
@@ -770,7 +769,6 @@ position 属性规定元素的定位类型。这个属性定义建立元素布�
    - 圣杯布局：容器内不能撑开高度
    - `flex`布局最好，基本没有大的缺点。
 
-
 ---
 
 ##  10、为什么 overflow:hidden/auto 可以清除浮动以及几种清除浮动的方法？
@@ -817,7 +815,6 @@ float 非默认值
    }
    /*注意：:after,:before是在当前元素的content（内容）前后加的样式，不是在某个元素的前后加样式*/
    ```
-
 
 ---
 
@@ -987,7 +984,6 @@ li:hover{
 
 - 特殊：相对定位的时候，top(bottom)   left(right)参照的是父元素的内容区域的高度与宽度，而绝对定位的时候参照的是最近的定位元素包含padding的高度与宽度
 
-
 ---
 
 ## 13、雪碧图
@@ -1018,4 +1014,19 @@ li:hover{
 5. 雪碧图各种实现方法
 
    [**详情**](https://segmentfault.com/a/1190000007686042)
+
+---
+
+## 14、CSS中可继承的属性
+
+继承就是指子节点默认使用父节点的样式属性。
+
+可以继承的属性很少，**只有颜色，文字，字体间距行高对齐方式，和列表的样式可以继承。**
+
+```
+所有元素可继承：visibility和cursor。
+内联元素可继承：letter-spacing、word-spacing、white-space、line-height、color、font、font-family、font-size、font-style、font-variant、font-weight、text-decoration、text-transform、direction。
+终端块状元素可继承：text-indent和text-align。
+列表元素可继承：list-style、list-style-type、list-style-position、list-style-image。
+```
 
