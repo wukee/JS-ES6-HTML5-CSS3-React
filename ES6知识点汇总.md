@@ -23,9 +23,69 @@ ECMAScript 和 JavaScript 的关系是，前者是后者的规格，后者是前
 - ES6 明确规定，如果区块中存在 let 和 const 命令，这个区块对这些命令声明的变量，从一开始就形成了封闭作用域。凡是在声明之前就使用这些变量，就会报错。
 
 
-- 在代码块内，使用 let 命令声明变量之前，该变量都是不可用的。这在语法上，称为**“暂时性死区”**
+- 在代码块内，使用 let 命令声明变量之前，该变量都是不可用的。这在语法上，称为“[暂存死区](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/let#Temporal_dead_zone_and_errors_with_let)” 
 
-### const命令
+### const命令 [详情](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/const)
+
+**const声明**创建一个值的只读引用。但这并不意味着它所持有的值是不可变的，只是变量标识符不能重新分配。例如，在引用内容是对象的情况下，这意味着可以改变对象的内容 
+
+```javascript
+// 注意: 常量在声明的时候可以使用大小写，但通常情况下全部用大写字母。 
+
+// 定义常量MY_FAV并赋值7
+const MY_FAV = 7;
+
+// 报错
+MY_FAV = 20;
+
+// 输出 7
+console.log("my favorite number is: " + MY_FAV);
+
+// 尝试重新声明会报错 
+const MY_FAV = 20;
+
+//  MY_FAV 保留给上面的常量，这个操作会失败
+var MY_FAV = 20; 
+
+// 也会报错
+let MY_FAV = 20;
+
+// 注意块范围的性质很重要
+if (MY_FAV === 7) { 
+    // 没问题，并且创建了一个块作用域变量 MY_FAV
+    // (works equally well with let to declare a block scoped non const variable)
+    let MY_FAV = 20;
+
+    // MY_FAV 现在为 20
+    console.log('my favorite number is ' + MY_FAV);
+
+    // 这被提升到全局上下文并引发错误
+    var MY_FAV = 20;
+}
+
+// MY_FAV 依旧为7
+console.log("my favorite number is " + MY_FAV);
+
+// 常量要求一个初始值
+const FOO; // SyntaxError: missing = in const declaration
+
+// 常量可以定义成对象
+const MY_OBJECT = {"key": "value"};
+
+// 重写对象和上面一样会失败
+MY_OBJECT = {"OTHER_KEY": "value"};
+
+// 对象属性并不在保护的范围内，下面这个声明会成功执行
+MY_OBJECT.key = "otherValue";
+
+// 也可以用来定义数组
+const MY_ARRAY = [];
+// It's possible to push items into the array
+// 可以向数组填充数据
+MY_ARRAY.push('A'); // ["A"]
+// 但是，将一个新数组赋给变量会引发错误
+MY_ARRAY = ['B']
+```
 
 - const 声明一个只读的常量。一旦声明就必须立即初始化，只声明不赋值就会报错，且常量的值就不能改变。
 
@@ -858,7 +918,101 @@ for(let i of arr.keys()){
 
 ## 4. Promise与异步编程
 
-Promise就是一个对象，用来传递异步操作的数据（消息）。
+在 JavaScript 的异步进化史中，涌现出一系列解决 callback 弊端的库，而 Promise 成为了最终的胜者，并成功地被引入了 ES6 中。它将提供了一个更好的“线性”书写方式，并解决了异步异常只能在当前回调中被捕获的问题。
+
+Promise 就像一个中介，它承诺会将一个可信任的异步结果返回。首先 Promise 和异步接口签订一个协议，成功时，调用resolve函数通知 Promise，异常时，调用reject通知 Promise。另一方面 Promise 和 callback 也签订一个协议，由 Promise 在将来返回可信任的值给then和catch中注册的 callback。
+
+```javascript
+// 创建一个 Promise 实例（异步接口和 Promise 签订协议）
+var promise = new Promise(function (resolve,reject) {
+  ajax('url',resolve,reject);
+});
+
+// 调用实例的 then catch 方法 （成功回调、异常回调与 Promise 签订协议）
+promise.then(function(value) {
+  // success
+}).catch(function (error) {
+  // error
+})
+```
+
+Promise 是个非常不错的中介，它只返回可信的信息给 callback。它对第三方异步库的结果进行了一些加工，保证了 callback 一定会被异步调用，且只会被调用一次。
+
+```javascript
+var promise1 = new Promise(function (resolve) {
+  // 可能由于某些原因导致同步调用
+  resolve('B');
+});
+// promise依旧会异步执行
+promise1.then(function(value){
+    console.log(value)
+});
+console.log('A');
+// A B （先 A 后 B）
+
+
+var promise2 = new Promise(function (resolve) {
+  // 成功回调被通知了2次
+  setTimeout(function(){
+    resolve();
+  },0)
+});
+// promise只会调用一次
+promise2.then(function(){
+    console.log('A')
+});
+// A (只有一个)
+
+var promise3 = new Promise(function (resolve,reject) {
+  // 成功回调先被通知，又通知了失败回调
+  setTimeout(function(){
+    resolve();
+    reject();
+  },0)
+
+});
+// promise只会调用成功回调
+promise3.then(function(){
+    console.log('A')
+}).catch(function(){
+    console.log('B')
+});
+// A（只有A）
+```
+
+介绍完 Promise 的特性后，来看看它如何利用链式调用，解决异步代码可读性的问题的。
+
+```javascript
+var fetch = function(url){
+    // 返回一个新的 Promise 实例
+    return new Promise(function (resolve,reject) {
+        ajax(url,resolve,reject);
+    });
+}
+
+A();
+fetch('url1').then(function(){
+    B();
+    // 返回一个新的 Promise 实例
+    return fetch('url2');
+}).catch(function(){
+    // 异常的时候也可以返回一个新的 Promise 实例
+    return fetch('url2');
+    // 使用链式写法调用这个新的 Promise 实例的 then 方法    
+}).then(function() {
+    C();
+    // 继续返回一个新的 Promise 实例...
+})
+// A B C ...
+```
+
+如此反复，不断返回一个 Promise 对象，再采用链式调用的方式不断地调用。使 Promise 摆脱了 callback 层层嵌套的问题和异步代码“非线性”执行的问题。
+
+Promise 解决的另外一个难点是 callback 只能捕获当前错误异常。Promise 和 callback 不同，每个 callback 只能知道自己的报错情况，但 Promise 代理着所有的 callback，所有 callback 的报错，都可以由 Promise 统一处理。所以，可以通过catch来捕获之前未捕获的异常。
+
+Promise 解决了 callback 的异步调用问题，但 Promise 并没有摆脱 callback，它只是将 callback 放到一个可以信任的中间机构，这个中间机构去链接我们的代码和异步接口。
+
+**Promise就是一个对象，用来传递异步操作的数据（消息）。**
 
 **有两种状态：**
 
