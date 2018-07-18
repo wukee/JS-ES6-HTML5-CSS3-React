@@ -1029,4 +1029,3 @@ li:hover{
 终端块状元素可继承：text-indent和text-align。
 列表元素可继承：list-style、list-style-type、list-style-position、list-style-image。
 ```
-
