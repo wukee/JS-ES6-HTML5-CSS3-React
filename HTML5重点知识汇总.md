@@ -645,7 +645,7 @@ React 是一个用于构建用户界面的 JAVASCRIPT 库， 起源于 Facebook 
 
 ## 19. 在浏览器输入一个地址后都发生了什么？
 
-![加载过程](image\resources.png)
+![加载过程](https://github.com/Hookee666/E6-H5-C3/blob/master/image/resources.png)
 
 1. 对于一个请求来说无论是地址栏输入的还是代码里加载的它都会有一个URL。加载资源的第一步就是把这URL解析，提取出里面的信息。
 2. 第二步就是拿到上一步解析的域名，去DNS服务器上查找该域名对应的IP。
