@@ -89,18 +89,21 @@
 - **Unmounting  卸载阶段**：将组件从DOM树移出，防止内存溢出。
 
 #### 挂载阶段
-
+![加载阶段](https://github.com/wukee/JS-ES6-HTML5-CSS3-React/blob/master/image/加载阶段.PNG)
 ```
 首先在组件加载的时候先是执行构造函数constructor() ，然后执行componentWillMount()组件将要执行（在这里可以加载异步的方法），然后再执行render() 渲染组件，最后再执行componentDidMount() 组件加载完成，这时已经生成了真实的DOM节点。
 ```
 
 #### 更新过程
+![更新阶段](https://github.com/wukee/JS-ES6-HTML5-CSS3-React/blob/master/image/更新阶段1.PNG)
+![更新阶段](https://github.com/wukee/JS-ES6-HTML5-CSS3-React/blob/master/image/更新阶段2.PNG)
 
 ```
 在更新过程中，如果是state的更新，它会先执行shouldComponentUpdate()这个方法来判断是否更新子组件，如果是，则往下进行，执行 componentWillUpdate() 组件将要更新  然后再 执行render() 渲染更新后的组件 再执行componentDidUpdate() 组件更新完成。这是整个更新过程就完成了。但如果是 props引起的数据改变 这里面会多个componentWillReceiveProps()来执行父组件传来的props。
 ```
 
 #### 卸载过程
+![卸载阶段](https://github.com/wukee/JS-ES6-HTML5-CSS3-React/blob/master/image/卸载阶段.PNG)
 
 ```
 最后组件销毁时，执行componentWillUnmount()来处理一些收尾的逻辑。在这里做的通常是一些取消操作，比如说做了定时器，当组件消失的时候要把定时器关掉，减少内存占用。
