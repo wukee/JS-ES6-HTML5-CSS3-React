@@ -504,32 +504,6 @@ f() // 1，函数 f 调用时，参数 y = x 形成一个单独的作用域。�
 
 ES6 引入 rest 参数（形式为 `...变量名` ），用于获取函数的多余参数，这样就不需要使用 arguments 对象了。rest参数搭配的变量是一个数组，该变量将多余的参数放入数组中。
 
-### 箭头函数
-
-ES6 允许使用“箭头”（` => `）定义函数。
-
-```javascript
-var f = () => 5;
-// 等同于
-var f = function () { return 5 };//箭头函数只有一行语句，且不需要返回值的写法
-
-var sum = (num1, num2) => { return num1 + num2; }
-//箭头函数的代码块部分多于一条语句，需用{}，并且使用 return 语句返回。
-
-let getTempItem = id => ({ id: id, name: "Temp" });
-//箭头函数直接返回一个对象，必须在对象外面加上括号
-
-const numbers = (...nums) => nums;
-numbers(1, 2, 3, 4, 5)
-// [1,2,3,4,5]    rest参数与箭头函数结合的例子。
-```
-
-箭头函数有几个使用注意点。
-（1）函数体内的 this 对象，就是**定义时所在的对象**，而不是指向运行时所在的对象。
-（2）不可以当作构造函数，也就是说，不可以使用 new 命令，否则会抛出一个错误。
-（3）不可以使用 arguments 对象，该对象在函数体内不存在。如果要用，可以用 rest 参数代替。
-（4）不可以使用 yield 命令，因此箭头函数不能用作 Generator 函数。
-
 ### 尾调用优化
 
 尾调用（Tail Call）是函数式编程的一个重要概念，指某个函数的最后一步是调用另一个函数。
@@ -938,11 +912,144 @@ for(let i of arr.keys()){
 
 ---
 
-## 4. Promise与异步编程
+## 4. 箭头函数[详细](http://es6.ruanyifeng.com/#docs/function#%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0)
 
-在 JavaScript 的异步进化史中，涌现出一系列解决 callback 弊端的库，而 Promise 成为了最终的胜者，并成功地被引入了 ES6 中。它将提供了一个更好的“线性”书写方式，并解决了异步异常只能在当前回调中被捕获的问题。
+就像它的名字一样，是使用箭头（=>）定义的函数新语法。
 
-Promise 就像一个中介，它承诺会将一个可信任的异步结果返回。首先 Promise 和异步接口签订一个协议，成功时，调用resolve函数通知 Promise，异常时，调用reject通知 Promise。另一方面 Promise 和 callback 也签订一个协议，由 Promise 在将来返回可信任的值给then和catch中注册的 callback。
+**箭头函数的出现解决了js中一些问题？**
+
+第一，简化了写法，使用箭头函数可以使得我们的代码量减少，而且更加的直观。
+
+第二，是它明确了this的指向。传统 js 的this有一个问题，就是**函数内的this值可以根据函数调用的上下文而改变**，这样经常会由于this的指向不定而容易出现一些错误。**箭头函数的this是确定的**，它是在**定义的时候确定的**（不像 js 中this是在运行时才确定），不能被改变，也不能被call,apply,bind这些方法进行修改。
+
+**那么箭头函数的this永远指向哪里呢？永远指向上一个不是箭头函数的函数的this** 
+
+```javascript
+//请问下面的代码之中有几个 this？
+function foo() {
+  return () => {
+    return () => {
+      return () => {
+        console.log('id:', this.id);
+      };
+    };
+  };
+}
+
+var f = foo.call({id: 1});
+
+var t1 = f.call({id: 2})()(); // id: 1
+var t2 = f().call({id: 3})(); // id: 1
+var t3 = f()().call({id: 4}); // id: 1
+
+//上面代码之中，只有一个this，就是函数foo的this，所以t1、t2、t3都输出同样的结果。因为所有的内层函数都是箭头函数，都没有自己的this，它们的this其实都是最外层foo函数的this。
+
+//this指向的固定化，并不是因为箭头函数内部有绑定this的机制，实际原因是箭头函数根本没有自己的this，导致内部的this就是外层代码块的this。正是因为它没有this，所以也就不能用作构造函数。
+
+```
+
+箭头函数有几个使用注意点。
+（1）函数体内的 this 对象，就是**定义时所在的对象**，而不是指向运行时所在的对象。
+（2）不可以当作构造函数，也就是说，不可以使用 new 命令，否则会抛出一个错误。
+（3）不可以使用 arguments 对象，该对象在函数体内不存在。如果要用，可以用 rest 参数代替。
+
+箭头函数简单用法：
+
+```javascript
+var f = () => 5;
+// 等同于
+var f = function () { return 5 };
+
+var sum = (num1, num2) => { return num1 + num2; }
+//箭头函数的代码块部分多于一条语句，需用{}，并且使用 return 语句返回。
+
+let getTempItem = id => ({ id: id, name: "Temp" });
+//箭头函数直接返回一个对象，必须在对象外面加上括号
+
+const numbers = (...nums) => nums;
+numbers(1, 2, 3, 4, 5)
+// [1,2,3,4,5]    rest参数与箭头函数结合的例子。
+```
+
+## 5. Promise与异步编程 [详情](https://segmentfault.com/a/1190000011652907)    [阮一峰](http://es6.ruanyifeng.com/#docs/promise)  
+
+### （1）Promise概念
+
+`Promise`，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。从语法上说，**Promise 是一个对象**，**从它可以获取异步操作的消息**。我自己的理解是：它就是用于处理异步操作的，异步处理**成功了就执行成功的操作**，异步处理失败了就**捕获错误**或者**停止后续操作**。
+
+### （2）Promise三种状态 
+
+Promise它有三种状态，我是这样理解的：可以把**Promise对象看成是一条工厂的流水线**，对于流水线来说，从它的工作职能上看，它有三种状态，一个是初始状态（刚开机的时候），一个是加工产品成功，一个是加工产品失败（出现了某些故障）。同样对于Promise对象来说，它也有三种状态：
+
+1. `pending`初始状态,也称为未定状态，就是初始化Promise时，调用executor执行器函数后的状态。
+2. `fulfilled`完成状态，意味着异步操作成功。
+3. `rejected`失败状态，意味着异步操作失败。
+
+但它只有两种状态可以转化，即
+
+- 操作成功
+  *pending -> fulfilled*
+- 操作失败
+  *pending -> rejected*
+
+并且这个状态转化是*单向的，不可逆转*，已经确定的状态（fulfilled/rejected）无法转回初始状态（pending）。
+
+### （3）Promise的一般表示形式为：
+
+```javascript
+new Promise(
+    /* executor */
+    function(resolve, reject) {
+        if (/* success */) {
+            // ...执行代码
+            resolve();
+        } else { /* fail */
+            // ...执行代码
+            reject();
+        }
+    }
+);
+//其中，Promise中的参数它是一个执行器函数，它有两个参数resolve和reject。它内部通常有一些异步操作，如果异步操作成功，则可以调用resolve()来将该实例的状态置为fulfilled，即已完成的，如果一旦失败，可以调用reject()来将该实例的状态置为rejected，即失败的。
+```
+
+#### （4）Promise方法 [详情](https://segmentfault.com/a/1190000011652907) 
+
+Promise对象含有then方法，then()调用后返回一个Promise对象，意味着实例化后的Promise对象可以进行*链式调用*，而且这个then()方法可以接收两个函数，一个是处理成功后的函数，一个是处理错误结果的函数。 
+
+**使用方法：**
+
+```javascript
+let p1=new Promise((resolve,reject)=>{ //里面是一个函数
+    //resolve  成功了
+    //reject    失败了
+});
+p1.then(Success(resolve){
+        //成功数据
+        },Failure(resolve){
+        //失败数据
+  })；
+/*相当于
+var p1=new Promise(function(resole,reject){
+      if(异步处理成功){
+                resolve（成功数据）；
+           }else{
+                 reject（失败数据）；
+           }
+})； */
+  
+//示例
+let p1 = new Promise((resolve,reject)=>{
+    reject(2);
+});
+p1.then(
+    (value)=>{
+     console.log(`成功了：${value}`);
+      },
+    (value)=>{
+     console.log(`失败了：${value}`);
+})
+// 2；上面是reject（2），p1.then 就执行第二个函数
+```
 
 ```javascript
 // 创建一个 Promise 实例（异步接口和 Promise 签订协议）
@@ -1033,49 +1140,6 @@ fetch('url1').then(function(){
 Promise 解决的另外一个难点是 callback 只能捕获当前错误异常。Promise 和 callback 不同，每个 callback 只能知道自己的报错情况，但 Promise 代理着所有的 callback，所有 callback 的报错，都可以由 Promise 统一处理。所以，可以通过catch来捕获之前未捕获的异常。
 
 Promise 解决了 callback 的异步调用问题，但 Promise 并没有摆脱 callback，它只是将 callback 放到一个可以信任的中间机构，这个中间机构去链接我们的代码和异步接口。
-
-**Promise就是一个对象，用来传递异步操作的数据（消息）。**
-
-**有两种状态：**
-
-​        pending（等待、处理中）--->Resolve(完成)
-
-​                                                      --->Rejected(拒绝、失败)
-
-**使用方法：**
-
-```javascript
-let p1=new Promise((resolve,reject)=>{ //里面是一个函数
-    //resolve  成功了
-    //reject    失败了
-});
-p1.then(Success(resolve){
-        //成功数据
-        },Failure(resolve){
-        //失败数据
-  })；
-/*相当于
-var p1=new Promise(function(resole,reject){
-      if(异步处理成功){
-                resolve（成功数据）；
-           }else{
-                 reject（失败数据）；
-           }
-})； */
-  
-//示例
-let p1 = new Promise((resolve,reject)=>{
-    reject(2);
-});
-p1.then(
-    (value)=>{
-     console.log(`成功了：${value}`);
-      },
-    (value)=>{
-     console.log(`失败了：${value}`);
-})
-// 2；上面是reject（2），p1.then 就执行第二个函数
-```
 
 **Promise的属性和方法：**
 
