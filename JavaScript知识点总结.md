@@ -351,7 +351,7 @@ javascript语言级别快速创建对象的实例
 
 ```javascript
 var obj = {foo: 'foo', bar: 'bar'}; // Object对象字面量
-var obj2 = [obj, 'foo', 'bar']; // Array数组字面量
+var obj2 = ['obj', 'foo', 'bar']; // Array数组字面量
 var obj3 = /^[a-zA-Z0-9]$/; // RegExp正则字面量
 var obj4 = function(){}; // Function函数字面量
 ```
@@ -384,8 +384,6 @@ var obj1 = new Fn();
 >(2) 将构造函数的作用域赋给新对象（因此 this 就指向了这个新对象）;
 >(3) 执行构造函数中的代码（为这个新对象添加属性）;
 >(4) 返回新对象。
-
-
 
 ### (3) 函数声明
 
@@ -494,7 +492,7 @@ console.log(obj2.colors);  //[ 'red', 'blue', 'green', 'black' ]
 
 ### 构造函数继承
 
-实现方法：在子类型构造函数的内部调用超类型构造函数。
+实现方法：**在子类的构造函数里调用父类的构造函数。**
 
 缺点: **方法**都在构造函数中定义，因此函数复用就无从谈起，即：父类的**方法**没有被共享，造成内存浪费
 
@@ -507,9 +505,9 @@ function Parent() {
 }
 function Child() {
     //继承了Person，同时还可以传递参数
-    Parent.call(this);
+    Parent.call(this); //在子类的构造函数体里面，执行父类的构造函数来实现继承
     
-    //实例属性
+    //添加自己的属性
     this.age=25;
 }
 var obj1=new Child();
@@ -923,6 +921,10 @@ RegExp:正则。
 **一句话：js柯里化是逐步传参，逐步缩小函数的适用范围，逐步求解的过程**。 **[详情](https://www.haorooms.com/post/js_currying)**
 
 ## 18、JS按位操作
+
+**1.Javascript中，所有数字都是以64位（1Btye(字节)=8bit(位)）浮点数形式储存，即使整数也是如此。** 
+
+**2.** **JS中的数字是不分类型的，也就是没有byte/int/float/double等的差异。**
 
 ![按位操作](https://uploadfiles.nowcoder.net/images/20170713/7852649_1499938839314_ED9CA7D967A21103F57659E48CE27B40)
 
