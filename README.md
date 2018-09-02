@@ -6,6 +6,8 @@
 - CSS3常见问题总结
 - ES6知识点总结
 - JavaScript重点知识整理
+- Ajax知识点总结
 - React框架学习
+- React-Router路由原理
 - ECharts数据可视化图表库
 - Uber大数据可视化框架 Deck.gl
