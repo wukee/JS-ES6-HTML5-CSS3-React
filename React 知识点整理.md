@@ -95,12 +95,17 @@
 ```
 
 #### 更新过程
+ **更新阶段1**
+![更新阶段](https://github.com/wukee/E6-H5-C3/blob/master/image/更新阶段1.PNG)
+**更新阶段2**
+![更新阶段](https://github.com/wukee/E6-H5-C3/blob/master/image/更新阶段2.PNG)
 
 ```
 在更新过程中，如果是state的更新，它会先执行shouldComponentUpdate()这个方法来判断是否更新子组件，如果是，则往下进行，执行 componentWillUpdate() 组件将要更新  然后再 执行render() 渲染更新后的组件 再执行componentDidUpdate() 组件更新完成。这是整个更新过程就完成了。但如果是 props引起的数据改变 这里面会多个componentWillReceiveProps()来执行父组件传来的props。
 ```
 
 #### 卸载过程
+![卸载阶段](https://github.com/wukee/E6-H5-C3/blob/master/image/卸载阶段.PNG)
 
 ```
 最后组件销毁时，执行componentWillUnmount()来处理一些收尾的逻辑。在这里做的通常是一些取消操作，比如说做了定时器，当组件消失的时候要把定时器关掉，减少内存占用。
