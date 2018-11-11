@@ -89,7 +89,7 @@
 - **Unmounting  卸载阶段**：将组件从DOM树移出，防止内存溢出。
 
 #### 挂载阶段
-![加载阶段](https://github.com/wukee/E6-H5-C3/blob/master/image/Git.jpg)
+![加载阶段](https://github.com/wukee/E6-H5-C3/blob/master/image/加载阶段.jpg)
 ```
 首先在组件加载的时候先是执行构造函数constructor() ，然后执行componentWillMount()组件将要执行（在这里可以加载异步的方法），然后再执行render() 渲染组件，最后再执行componentDidMount() 组件加载完成，这时已经生成了真实的DOM节点。
 ```
